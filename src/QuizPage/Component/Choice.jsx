@@ -6,10 +6,10 @@ import {quiz_data} from '../QuizData'
 const Choice = (props) => {
     const dispatch = useDispatch();
     const { quiz_items } = quiz_data
-
+    console.log(props);
     const submit_answer = (answer) => {
         dispatch(userAction.submit_answer(answer))
-        // props.history.push('/quiz/result')
+        props.history.push(`/quiz/${props.poster_id}/result/${answer}`)
     }
     return (
         <div className="choice_border">

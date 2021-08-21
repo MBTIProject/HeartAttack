@@ -11,7 +11,7 @@ const poster_data_ary = [
 const MainPage = ({history}) => {
 
     return (
-        <div className="container">
+        <div className="mainpage_container">
            <img src="src\logo.png" style={{width:'8%'}}/>
            <h1> 당신을 심쿵하게 만드는 심리테스트</h1>
            <div className="polaroid_list">
