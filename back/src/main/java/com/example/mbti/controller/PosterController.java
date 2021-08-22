@@ -3,11 +3,9 @@ package com.example.mbti.controller;
 import com.example.mbti.dto.PosterRequestDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.PosterRepository;
+import com.example.mbti.service.PosterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PosterController {
     private final PosterRepository posterRepository;
+    private final PosterService posterService;
 
     //심리테스트 유형 추가
     @PostMapping("/main/list")
@@ -27,5 +26,12 @@ public class PosterController {
     @GetMapping("/main/list")
     public List<Poster> selectPost() {
         return posterRepository.findAll();
+    }
+
+    //심리테스트 유형별 조회수
+    @PutMapping("/main/list/{id}")
+    public Long updatePoster(@PathVariable Long id){
+        posterService.update(id);
+        return id;
     }
 }
