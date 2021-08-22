@@ -16,7 +16,7 @@ public class Survey {
     @Id
     private Long id;
 
-    @JoinColumn(name="poster_id")
+    @Column(nullable = false)
     private Long poster_id;
 
     @Column(nullable = false)
