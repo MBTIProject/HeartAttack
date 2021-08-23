@@ -1,7 +1,9 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { actionCreators as dataAction } from '../../../redux/module/data'
 import { actionCreators as userAction } from '../../../redux/module/user'
 import {quiz_data} from '../QuizData' 
+import axios from 'axios'
 
 const Choice = (props) => {
     const dispatch = useDispatch();
@@ -9,7 +11,14 @@ const Choice = (props) => {
     console.log(props);
     const submit_answer = (answer) => {
         dispatch(userAction.submit_answer(answer))
-        props.history.push(`/quiz/${props.poster_id}/result/${answer}`)
+        // dispatch(dataAction.load_quiz_dataDB(parseInt(props.poster_id) + 1, answer))
+        // props.history.push(`/quiz/${props.poster_id}/result/${answer}`)
+        axios.put(`http://mbti.govpped.com:7070/main/list/${parseInt(props.poster_id) + 1}`)
+        .then(response => {
+            console.log(response.data);
+        }).catch(error => {
+
+        })
     }
     return (
         <div className="choice_border">
