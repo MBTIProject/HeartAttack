@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cute+Font&display=swap');
 :root{
     --color-body-background: #f9f3f3;
     --color-list-background :#F7D9D9;
@@ -10,3 +11,23 @@
 body{
     background-color: var(--color-body-background) !important;
 }
+
+.container{
+    width:100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    animation: fadein;
+    animation-duration: .5s;
+}
+@keyframes fadein {     /* 수정해야 할 부분*/
+    0% {
+      opacity: 0; }
+    100% {
+      opacity: 1; } }
+    

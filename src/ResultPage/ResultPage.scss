@@ -1,0 +1,39 @@
+.comment_border{
+    width:600px;
+    background-color: var(--color-list-background);
+    text-align: center;
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .comment_input{
+        border:none;
+        border-radius: var(--radius-list);
+        padding:15px;
+        font-size: 16px;
+        &:focus{
+            outline: none;
+        }
+    }
+    .submit_button{
+        font-size: 25px;
+        position: absolute;
+        bottom:20px;
+        right:10px;
+        cursor: pointer;
+        &:hover{
+            color: blue;
+        }
+    }
+    .user_comment_border{
+        width:350px;
+        padding:15px;
+        text-align: start;
+        color:rgb(97, 94, 94);
+        font-size: 20px;
+        background-color: white;
+        border-radius: var(--radius-list);
+        margin-top: 10px;
+    }
+}
