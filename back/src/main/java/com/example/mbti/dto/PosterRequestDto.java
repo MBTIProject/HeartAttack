@@ -9,4 +9,5 @@ public class PosterRequestDto {
     private String img_url;
     private String poster_title;
     private int poster_cnt;
+    private String quiz;
 }
