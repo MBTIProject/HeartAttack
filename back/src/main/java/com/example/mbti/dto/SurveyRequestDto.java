@@ -6,9 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SurveyRequestDto {
-    private String quiz;
     private String selection;
+    private int selection_id;
     private String answer;
+    private String answer_title;
     private Long poster_id;
     private int answer_cnt;
 }

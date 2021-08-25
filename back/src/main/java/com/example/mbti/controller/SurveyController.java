@@ -22,9 +22,9 @@ public class SurveyController {
         return surveyRepository.save(survey);
     }
     //심리테스트 선택지, 결과 조회
-    @GetMapping("survey/list")
-    public List<Survey> selectPost() {
-        return surveyRepository.findAll();
+    @GetMapping("survey/list/{poster_id}")
+    public List<Survey> selectPost(@PathVariable Long poster_id) {
+        return surveyRepository.findByPoster_id(poster_id);
     }
 
     //심리테스트 결과 조회수
