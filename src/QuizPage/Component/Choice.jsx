@@ -13,11 +13,12 @@ const Choice = (props) => {
         dispatch(userAction.submit_answer(answer))
         // dispatch(dataAction.load_quiz_dataDB(parseInt(props.poster_id) + 1, answer))
         // props.history.push(`/quiz/${props.poster_id}/result/${answer}`)
-        axios.put(`http://mbti.govpped.com:7070/main/list/${parseInt(props.poster_id) + 1}`)
+        const url = `http://mbti.govpped.com:7070/main/list/${parseInt(props.poster_id) + 1}`
+        axios.put(url,)
         .then(response => {
             console.log(response.data);
         }).catch(error => {
-
+            console.log(error);
         })
     }
     return (

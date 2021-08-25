@@ -33,11 +33,11 @@ const load_poster_dataDB = () => {
 const load_quiz_dataDB = (poster_id, answer) => {
     console.log(poster_id, answer);
     return function(dispatch, getState, {history}){
-        axios.get('http://mbti.govpped.com:7070/survey/list')
-        .then((response) => {
-            // axios.put(`http://mbti.govpped.com:7070/main/list/${poster_id}`)
-            // .then(put_response_data => {
-                // console.log(response.data);
+        // axios.get('http://mbti.govpped.com:7070/survey/list')
+        // .then((response) => {
+        //     axios.put(`http://mbti.govpped.com:7070/main/list/${poster_id}`)
+        //     .then(put_response_data => {
+        //         console.log(response.data);
                 // dispatch(load_quiz_data(response.data));
                 // history.replace(`/quiz/${poster_id}/result/${answer}`);
             // })
@@ -45,10 +45,10 @@ const load_quiz_dataDB = (poster_id, answer) => {
             //     console.log(error);
             // })
 
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // })
     }
 }
 
