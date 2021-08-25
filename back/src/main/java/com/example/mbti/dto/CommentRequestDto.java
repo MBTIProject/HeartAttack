@@ -1,6 +1,5 @@
 package com.example.mbti.dto;
 
-import com.example.mbti.model.Poster;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
