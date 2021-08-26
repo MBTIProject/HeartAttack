@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     .comment_input{
         border:none;
         border-radius: var(--radius-list);
@@ -36,4 +37,20 @@
         border-radius: var(--radius-list);
         margin-top: 10px;
     }
+    .comment{
+        font-size: 20px;
+    }
+    .number_of_comment{
+        position: relative;
+        right: -130px;
+    }
+}
+
+// ----- PopularTypes -----
+
+.popular_quiz_board{
+    width:70vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

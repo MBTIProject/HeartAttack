@@ -1,39 +1,51 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import '../ResultPage.scss'
 import { EditOutlined } from '@ant-design/icons'
-const comment_temp_data = [
-    {'key':1, 'user_name':'익명1호', 'content':'심리테스트 너무 재밌어요!'},
-    {'key':2, 'user_name':'익명2호', 'content':'또 만들어주세요!'},
-    {'key':3, 'user_name':'익명3호', 'content':'배고파요'},
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { actionCreators as dataAction } from '../../../redux/module/data'
+import { actionCreators as userAction} from '../../../redux/module/user'
 
-const Comment = () => {
+const Comment = ({poster_id}) => {
+    const dispatch = useDispatch();
+    const comment_data = useSelector(state => state.data.comment_data)
     const [comment, setComment] = useState('');
+    const comment_data_reverse = comment_data.reverse();
+    const comment_data_length = comment_data.length;
+    const text_area_ref = useRef();
+
+    useEffect(() => {
+        dispatch(dataAction.load_comment_dataDB(poster_id))
+    }, [comment_data])
 
     const onChangeInput = (e) =>{
         setComment(e.target.value);
     }
 
     const commentSubmit = (e) => {
-
+        dispatch(userAction.save_comment_dataDB(comment, poster_id));
+        setComment('');
+        text_area_ref.current.value = '';
     }
     return (
         <div className="comment_border">
 
             <h3>댓글 입력</h3>
             <div style={{position:'relative'}}>
-                <textarea className="comment_input" rows="7" cols="40" onChange={onChangeInput}/>
+                <textarea ref={text_area_ref} className="comment_input" rows="7" cols="40" onChange={onChangeInput}/>
                 <EditOutlined className="submit_button" onClick={commentSubmit}/>
             </div>
+            <span className="number_of_comment comment" >댓글 {comment_data_length}개</span>
             
 
             {
-                comment_temp_data.map(comment => {
+                comment_data_reverse.map((comment,i) => {
                     return(
-                        <div className='user_comment_border' key = {comment.key}>
-                            <p>{comment.user_name}</p>
-                            <p>{comment.content}</p>
-                        </div>
+                        <>
+                            <span className="comment" style={{textAlign:'start'}} >익명{comment_data_length - i}</span>
+                            <div className='user_comment_border' >
+                                <p>{comment.comment}</p>
+                            </div>
+                        </>
                     )
                 })
             }

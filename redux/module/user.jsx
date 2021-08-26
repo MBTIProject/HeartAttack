@@ -1,13 +1,35 @@
+import axios from "axios";
+import { actionCreators as dataAction } from './data';
+
 // actions
 const SUBMIT_ANSWER = "SUBMIT_ANSWER";
-
+const SUBMIT_COMMENT = "SUBMIT_COMMENT";
 // action creators
 const submit_answer = (answer) => {
 	return { type: SUBMIT_ANSWER, answer }
 }
+const submit_comment = (commentObject) => {
+	return { type: SUBMIT_COMMENT, commentObject }
+}
 // initialState
 const initialState = {
     answer:0,
+}
+//middle ware
+const save_comment_dataDB = (comment, poster_id) => {
+	return function(dispatch, getState, {history}) {
+		axios.post('http://mbti.govpped.com:7070/comment/list',{
+			'comment': comment,
+			'poster_id': poster_id,
+		})
+		.then(response => {
+			console.log(response.data);
+			dispatch(dataAction.load_comment_dataDB(poster_id));
+		})
+		.catch(error => {
+			console.log(error);
+		})
+	}
 }
 
 // reducer
@@ -15,6 +37,9 @@ export default function reducer(state = initialState, action = {}){
 	switch(action.type){
     	case "SUBMIT_ANSWER" : {
         	return {...state, answer: action.answer};
+        }
+    	case "SUBMIT_COMMENT" : {
+        	return {...state, };
         }
     default: return state;
 	}
@@ -24,6 +49,7 @@ export default function reducer(state = initialState, action = {}){
 // action creator export
 const actionCreators = {
     submit_answer,
+	save_comment_dataDB,
 };
 
 export { actionCreators };

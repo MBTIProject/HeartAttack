@@ -7,9 +7,9 @@ const ResultPage = (props) => {
     console.log(props.match.params);
     return (
         <div className="container" style={{height:'100vh',justifyContent:"space-between"}}>
-            <TestResult history={props.history}/>
+            <TestResult history={props.history}  answer_id={props.match.params.answer}/>
             <PopularTypes/>
-            <Comment/>
+            <Comment poster_id={props.match.params.id}/>
         </div>
     )
 }
