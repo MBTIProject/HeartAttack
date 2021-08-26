@@ -1,8 +1,9 @@
-import React, {useState,useEffect} from 'react'
+import React, { useEffect } from 'react'
 import './MainPage.scss'
 import { CaretRightOutlined } from '@ant-design/icons'
 import { actionCreators as dataAction } from '../../redux/module/data'
 import { useDispatch, useSelector } from 'react-redux'
+
 const poster_data_ary = [
     {'title': '연애 심리테스트', 'id':0, 'current_number_of_users':21},
     {'title': '재미있는 심리테스트', 'id':1, 'current_number_of_users':4},
@@ -20,8 +21,9 @@ const MainPage = ({history}) => {
     },[])
 
 
-    const move_quiz_page = (poster_id) => {
-        sessionStorage.setItem('selectedPoster',poster_id);
+    const move_quiz_page = (poster_id, poster_title, img_url) => {
+        sessionStorage.setItem('title', poster_title);
+        sessionStorage.setItem('img_url', img_url);
         history.push(`/quiz/${poster_id}`);
     }
 
@@ -36,7 +38,7 @@ const MainPage = ({history}) => {
                        return(
                         <div className="polaroid_outer" id ={v.poster_id} key={i}>
                             <div className="polaroid_inner">
-                                <img onClick={() => move_quiz_page(v.poster_id)} src={v.img_url}/>
+                                <img onClick={() => move_quiz_page(v.poster_id,v.poster_title, v.img_url)} src={v.img_url}/>
                                 <div className="polaroid_caption">  
                                     <span>{v.poster_title}<CaretRightOutlined style={{color:'green'}}/>{v.poster_cnt}</span>
                                 </div>

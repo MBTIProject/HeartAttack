@@ -1,16 +1,11 @@
-import React from 'react'
+import React from 'react';
+import './HomeButton.scss';
 import { HomeOutlined } from '@ant-design/icons'
 
 const HomeButton = ({history}) => {
     return (
         <HomeOutlined 
-        style={{
-            fontSize:'30px',
-            position:'absolute',
-            top:'0px',
-            left:'-50px',
-            cursor:'pointer'
-        }} 
+        className='home_button'
         onClick={() => history.push('/')}/>
     )
 }
