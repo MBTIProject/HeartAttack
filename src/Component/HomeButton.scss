@@ -1,0 +1,10 @@
+.home_button{
+    font-size:'30px';
+    position:'absolute';
+    top:'0px';
+    left:'-50px';
+    cursor:'pointer';
+    &:hover{
+        color: blue;
+    }
+}

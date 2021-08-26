@@ -2,12 +2,31 @@
     width:600px;
     background-color: var(--color-list-background);
     text-align: center;
-    
+    position:relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    .comment_input{
+        border:none;
+        border-radius: var(--radius-list);
+        padding:15px;
+        font-size: 16px;
+        &:focus{
+            outline: none;
+        }
+    }
+    .submit_button{
+        font-size: 25px;
+        position: absolute;
+        bottom:20px;
+        right:10px;
+        cursor: pointer;
+        &:hover{
+            color: blue;
+        }
+    }
     .user_comment_border{
         width:350px;
         padding:15px;
@@ -18,4 +37,20 @@
         border-radius: var(--radius-list);
         margin-top: 10px;
     }
+    .comment{
+        font-size: 20px;
+    }
+    .number_of_comment{
+        position: relative;
+        right: -130px;
+    }
+}
+
+// ----- PopularTypes -----
+
+.popular_quiz_board{
+    width:70vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
