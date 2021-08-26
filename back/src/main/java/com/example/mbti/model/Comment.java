@@ -22,8 +22,7 @@ public class Comment extends Timestamped {
     @Id
     private Long id;
 
-    @Column(nullable = false)
-    private  String name;
+
 
     @Column(nullable = false)
     private String comment;
@@ -32,7 +31,7 @@ public class Comment extends Timestamped {
     private Long poster_id;
 
     public Comment(CommentRequestDto commentRequestDto){
-        this.name = commentRequestDto.getName();
+
         this.comment = commentRequestDto.getComment();
         this.poster_id = commentRequestDto.getPoster_id();
     }
