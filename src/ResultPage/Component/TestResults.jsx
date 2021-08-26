@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import HomeButton from '../../Component/HomeButton'
 
-
 const TestResult = ({history, answer_id}) => {
 
     const quiz_data = useSelector(state => state.data.quiz_data)

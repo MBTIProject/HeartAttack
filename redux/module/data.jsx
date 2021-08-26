@@ -4,7 +4,7 @@ import axios from 'axios'
 const LOAD_POSTER_DATA = "LOAD_POSTER_DATA";
 const LOAD_QUIZ_DATA = "LOAD_QUIZ_DATA";
 const LOAD_COMMENT_DATA = 'LOAD_COMMENT_DATA';
-
+const RENEW_ANSWER_DATA = 'RENEW_ANSWER_DATA';
 // action creators
 const load_poster_data = (data) => {
 	return { type: LOAD_POSTER_DATA, data }
@@ -15,6 +15,10 @@ const load_quiz_data = (data) => {
 const load_comment_data = (data) => {
 	return { type: LOAD_COMMENT_DATA, data }
 }
+const renew_answer_data = (data) => {
+	return { type: RENEW_ANSWER_DATA, data }
+}
+
 // initialState
 const initialState = {
     poster_data:[],
@@ -26,11 +30,13 @@ const load_poster_dataDB = () => {
     return function(dispatch, getState, {history}){
         axios.get('http://mbti.govpped.com:7070/main/list')
         .then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             dispatch(load_poster_data(response.data));
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
+            alert('심리테스트 데이터를 받아오는데에 실패했습니다!', error);
+
         })
     }
 }
@@ -43,31 +49,13 @@ const load_quiz_dataDB = (poster_id) => {
             dispatch(load_quiz_data(response.data));
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
+            alert('퀴즈 데이터를 받아오는데에 실패했습니다!', error);
         })
     }
 }
 
-const count_answer = (poster_id, answer_id) => {
-    return function(dispatch, getState, {history}){
-        axios.put(`http://mbti.govpped.com:7070/main/list/${answer_id}`)
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        axios.put(`http://mbti.govpped.com:7070/survey/list/${answer_id}`)
-        .then((response) => {
-            console.log(response);
-            history.replace(`/quiz/${poster_id}/result/${answer_id}`)
 
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-}
 
 const load_comment_dataDB = (poster_id) => {
     return function(dispatch, getState, {history}){
@@ -77,11 +65,11 @@ const load_comment_dataDB = (poster_id) => {
             dispatch(load_comment_data(response.data));
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
+            alert('댓글 데이터를 받아오는데에 실패했습니다!',error);
         })
     }
 }
-
 
 // reducer
 export default function reducer(state = initialState, action = {}){ 
@@ -96,7 +84,9 @@ export default function reducer(state = initialState, action = {}){
     	case "LOAD_COMMENT_DATA" : {
         	return {...state, comment_data: [...action.data]};
         }
-
+        case "INCREASE_ANSWER_DATA" : {
+            return{...state, quiz_data: [...action.data]}
+        }
     default: return state;
 	}
 };
@@ -106,8 +96,8 @@ export default function reducer(state = initialState, action = {}){
 const actionCreators = {
     load_poster_dataDB,
     load_quiz_dataDB,
-    count_answer,
     load_comment_dataDB,
+    renew_answer_data,
 };
 
 export { actionCreators };
