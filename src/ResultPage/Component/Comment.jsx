@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../ResultPage.scss'
 import { EditOutlined } from '@ant-design/icons'
-const comment_temp_data = [
-    {'key':1, 'user_name':'익명1호', 'content':'심리테스트 너무 재밌어요!'},
-    {'key':2, 'user_name':'익명2호', 'content':'또 만들어주세요!'},
-    {'key':3, 'user_name':'익명3호', 'content':'배고파요'},
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { actionCreators as dataAction } from '../../../redux/module/data'
 
-const Comment = () => {
+const Comment = ({poster_id}) => {
+    const dispatch = useDispatch();
+    const comment_data = useSelector(state => state.data.comment_data)
     const [comment, setComment] = useState('');
+    const comment_data_length = comment_data.length;
+    useEffect(() => {
+        dispatch(dataAction.load_comment_dataDB(poster_id))
+    }, [])
 
     const onChangeInput = (e) =>{
         setComment(e.target.value);
     }
 
     const commentSubmit = (e) => {
-
+        
     }
     return (
         <div className="comment_border">
@@ -25,15 +28,18 @@ const Comment = () => {
                 <textarea className="comment_input" rows="7" cols="40" onChange={onChangeInput}/>
                 <EditOutlined className="submit_button" onClick={commentSubmit}/>
             </div>
+            <span className="number_of_comment comment" >댓글 {comment_data_length}개</span>
             
 
             {
-                comment_temp_data.map(comment => {
+                comment_data.map((comment,i) => {
                     return(
-                        <div className='user_comment_border' key = {comment.key}>
-                            <p>{comment.user_name}</p>
-                            <p>{comment.content}</p>
-                        </div>
+                        <>
+                            <span className="comment" style={{textAlign:'start'}} >익명{comment_data_length - i}</span>
+                            <div className='user_comment_border' >
+                                <p>{comment.comment}</p>
+                            </div>
+                        </>
                     )
                 })
             }

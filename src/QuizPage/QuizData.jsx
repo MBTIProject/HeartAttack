@@ -146,6 +146,45 @@ export const quiz_data = {
                 그래서 일까요 직장동료들은 당신을 상당히 불편하게 생각합니다. 당신 역시 그러한 동료들과의 일이 즐거울리 없겠죠. 일에 대한 의욕도 없고, 그래서 실수도 많은 편입니다. \n\
                 그러면 또 그런 당신에 대한 동료들의 불만이 생겨나는 악순환이 반복됩니다. 당신에게는 이러한 직장생활은 엄청난 스트레스!! ",
             ]
-        }
+        },
+        // {    // POSTER_MASTER
+        //     'POSTER_ID':5,
+        //     'POSTER_TITLE': '붕어빵 심리테스트',
+        //     'QUIZ': '붕어빵을 드실 때 어느 부위부터 드시나요?',
+        //     'IMG_URL': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxCHoXVTIYj_Mbq7QFsHGwNcNVgtcasRqk9g&usqp=CAU',
+        //     'POSTER_CNT': 0,
+        // },
+        // {   // POSTER_QUESTION
+        //     'POSTER_ID':5,
+        //     'SELECTION_ID':1,
+        //     'SELECTION':'머리',
+        //     'ANSWER_TITLE':'개방적이고 고집이 강한 당신!',
+        //     'ANSWER':'머리부터 먹는 사람은 낙천적이고 개방적인 성격으로 고집이 강하다고 합니다! 또, 틀에 박혀 있는 것을 싫어하고 은근 승부욕도 강해 남에게 지는 것을 싫어한다고 하는데요!',
+        //     'ANSWER_CNT':0,
+        // },
+        // {
+        //     'POSTER_ID':5,
+        //     'SELECTION_ID':2,
+        //     'SELECTION':'꼬리',
+        //     'ANSWER_TITLE':'신중하고 섬세한 당신!',
+        //     'ANSWER':'연애에는 둔감한 면이 있는 사람이라고 합니다! 남의 부탁을 잘 거절하지 못하는 착한 성격을 가지고 있다고 하는데요!!',
+        //     'ANSWER_CNT':0,
+        // },
+        // {
+        //     'POSTER_ID':5,
+        //     'SELECTION_ID':3,
+        //     'SELECTION':'배',
+        //     'ANSWER_TITLE':'적극적이고 활동적인!',
+        //     'ANSWER':'활발하고 친근한 성격이어서 동성친구들에게 인기가 많지만 귀가 얇은 편이라고 하는데요! 움직이기를 좋아하는 사람입니다!',
+        //     'ANSWER_CNT':0,
+        // },
+        // {
+        //     'POSTER_ID':5,
+        //     'SELECTION_ID':4,
+        //     'SELECTION':'등',
+        //     'ANSWER_TITLE':'활동적이며 매사에 적극적인!',
+        //     'ANSWER':'활발하고 친근한 성격이어서 동성친구에게 인기가 많은 편이라고 합니다!',
+        //     'ANSWER_CNT':0,
+        // }
     ]
 }

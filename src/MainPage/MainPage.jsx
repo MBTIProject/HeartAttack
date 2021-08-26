@@ -1,8 +1,9 @@
-import React, {useState,useEffect} from 'react'
+import React, { useEffect } from 'react'
 import './MainPage.scss'
 import { CaretRightOutlined } from '@ant-design/icons'
 import { actionCreators as dataAction } from '../../redux/module/data'
 import { useDispatch, useSelector } from 'react-redux'
+
 const poster_data_ary = [
     {'title': '연애 심리테스트', 'id':0, 'current_number_of_users':21},
     {'title': '재미있는 심리테스트', 'id':1, 'current_number_of_users':4},
@@ -12,11 +13,21 @@ const poster_data_ary = [
 
 const MainPage = ({history}) => {
     const dispatch = useDispatch();
-    const poster_data = useSelector(state => state.data.poster_data)
+    const poster_data = useSelector(state => state.data.poster_data);
+
+
     useEffect(() => {
         dispatch(dataAction.load_poster_dataDB());
     },[])
 
+
+    const move_quiz_page = (poster_id, poster_title, img_url) => {
+        sessionStorage.setItem('title', poster_title);
+        sessionStorage.setItem('img_url', img_url);
+        history.push(`/quiz/${poster_id}`);
+    }
+
+    
     return (
         <div className="mainpage_container">
            <img src="src\logo.png" style={{width:'8%'}}/>
@@ -25,25 +36,17 @@ const MainPage = ({history}) => {
                {
                    poster_data.map((v,i) => {
                        return(
-                           <p key={i}>{v.poster_title}</p>
-                       )
-                   })
-               }
-            {
-                poster_data_ary.map(v => {
-                    return(
-                        <div className="polaroid_outer" id ={v.id} key={v.id}>
+                        <div className="polaroid_outer" id ={v.poster_id} key={i}>
                             <div className="polaroid_inner">
-                                <img onClick={() => history.push(`/quiz/${v.id}`)} src="src\1.png"/>
+                                <img onClick={() => move_quiz_page(v.poster_id,v.poster_title, v.img_url)} src={v.img_url}/>
                                 <div className="polaroid_caption">  
-                                    <span>{v.title}<CaretRightOutlined style={{color:'green'}}/>{v.current_number_of_users}</span>
-
+                                    <span>{v.poster_title}<CaretRightOutlined style={{color:'green'}}/>{v.poster_cnt}</span>
                                 </div>
                             </div>
                         </div>
-                    )
-                })
-            }
+                       )
+                   })
+               }
             </div>
         </div>
     )
