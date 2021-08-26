@@ -1,3 +1,6 @@
+import axios from "axios";
+import { actionCreators as dataAction } from './data';
+
 // actions
 const SUBMIT_ANSWER = "SUBMIT_ANSWER";
 const SUBMIT_COMMENT = "SUBMIT_COMMENT";
@@ -13,9 +16,19 @@ const initialState = {
     answer:0,
 }
 //middle ware
-const save_comment_dataDB = () => {
+const save_comment_dataDB = (comment, poster_id) => {
 	return function(dispatch, getState, {history}) {
-		
+		axios.post('http://mbti.govpped.com:7070/comment/list',{
+			'comment': comment,
+			'poster_id': poster_id,
+		})
+		.then(response => {
+			console.log(response.data);
+			dispatch(dataAction.load_comment_dataDB(poster_id));
+		})
+		.catch(error => {
+			console.log(error);
+		})
 	}
 }
 
