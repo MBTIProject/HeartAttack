@@ -28,6 +28,7 @@ const Comment = ({poster_id}) => {
                             <span className="comment" style={{textAlign:'start'}} >익명{comment_data.length - i}</span>
                             <div className='user_comment_border' >
                                 <p>{v.comment}</p>
+                                <p style={{fontSize:'15px', float:'right'}}>{v.createdAt}</p>
                             </div>
                         </>
                     )
