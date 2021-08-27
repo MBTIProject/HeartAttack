@@ -13,7 +13,7 @@ const App = () => {
         <ConnectedRouter history={history}>	
             <Route exact path="/" component={MainPage}/>
             <Route exact path="/quiz/:id" component={QuizPage} />
-            <Route path="/quiz/result" component={ResultPage}/>
+            <Route path="/quiz/:id/result/:answer" component={ResultPage}/>
         </ConnectedRouter>    
     </>
     )
