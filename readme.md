@@ -29,10 +29,10 @@ react, spring을 사용한 심리테스트 웹사이트를 소개하겠습니다
 >   <br> 
 >   <br> 
 >   - 백엔드
->     - Basic Lauguage : Java
->     - core : Spring Boot, JPA, Spring Data JPA
->     - BuildTool : Gradle
->     - DB : Mysql
+>       - Basic Lauguage : Java
+>       - core : Spring Boot, JPA, Spring Data JPA
+>       - BuildTool : Gradle
+>       - DB : Mysql
 >   
 >   <br>
 <br>
