@@ -30,7 +30,7 @@ const load_poster_dataDB = () => {
     return function(dispatch, getState, {history}){
         axios.get('http://mbti.govpped.com:7070/main/list')
         .then((response) => {
-            // console.log(response.data);
+            console.log(response.data);
             dispatch(load_poster_data(response.data));
         })
         .catch((error) => {
