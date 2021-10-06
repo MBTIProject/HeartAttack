@@ -8,35 +8,31 @@ react, spring을 사용한 심리테스트 웹사이트를 소개하겠습니다
 
 <br>
 
->   <br>
->
-> - 프로젝트 목적 :  
->   <br>
-> - 작업 환경 : VSCode(Front) IntelliJ(Back)  
->   <br>
-> - 참여자
->   - 프런트엔드 : 나재완(ABlued)
->   - 백엔드 : 손성진(alisyabob), 이지원(twosupport)
->     <br>
->     <br>
-> - 사용 스택 
->   - 프런트엔드 
->       - Basic Lauguage : HTML, CSS, JavaScript 
->       - Framework : React 
->       - UI-Framework : Ant-design 
->       - Library : redux, redux-thunk
->       - ModuleBundler : Webpack
->   <br> 
->   <br> 
->   
->   - 백엔드  
->       - Basic Lauguage : Java
->       - core : Spring Boot, JPA, Spring Data JPA
->       - BuildTool : Gradle
->       - DB : Mysql
->   
->   <br>
-<br>
+
+- 프로젝트 목적 : 프론트엔드와 백엔드가 협업하여 서로의 입장을 이해해보는 시간을 갖기 
+   <br>
+ - 작업 환경 : VSCode(Front) IntelliJ(Back)  
+   <br>
+ - 참여자
+   - 프런트엔드 : 나재완(ABlued)
+   - 백엔드 : 손성진(alisyabob), 이지원(twosupport)
+     <br>
+     <br>
+ - 사용 스택 
+   - 프런트엔드 
+       - Basic Lauguage : HTML, CSS, JavaScript 
+       - Framework : React 
+       - UI-Framework : Ant-design 
+       - Library : redux, redux-thunk
+       - ModuleBundler : Webpack
+   
+   - 백엔드  
+       - Basic Lauguage : Java
+       - core : Spring Boot, JPA, Spring Data JPA
+       - BuildTool : Gradle
+       - DB : Mysql
+   
+
 <br>
 
 :heavy_check_mark: 구현된 기능들
