@@ -1,7 +1,9 @@
 package com.example.mbti.controller;
 
+import com.example.mbti.advice.GetAllPost;
 import com.example.mbti.advice.Success;
 import com.example.mbti.dto.PosterRequestDto;
+import com.example.mbti.dto.PosterResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.PosterRepository;
 import com.example.mbti.service.PosterService;
@@ -16,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/main")
 public class PosterController {
-    private final PosterRepository posterRepository;
     private final PosterService posterService;
 
     //심리테스트 유형 추가
@@ -28,14 +29,14 @@ public class PosterController {
 
     //심리테스트 유형 전체조회
     @GetMapping("/main/list")
-    public List<Poster> selectPost() {
-        return posterRepository.findAll();
+    public ResponseEntity<GetAllPost> selectPost() {
+        return new ResponseEntity<>(new GetAllPost(true,"심리테스트 유형 전제조회 완료",posterService.findPost()),HttpStatus.OK);
     }
 
     //심리테스트 유형별 조회수
-    @PutMapping("/main/list/{id}")
-    public Long updatePoster(@PathVariable Long id){
-        posterService.update(id);
-        return id;
-    }
+//    @PutMapping("/main/list/{id}")
+//    public Long PostList(@PathVariable Long id){
+//        posterService.update(id);
+//        return id;
+//    }
 }
