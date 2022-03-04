@@ -1,26 +1,23 @@
 package com.example.mbti.model;
 
 import com.example.mbti.dto.PosterRequestDto;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@SequenceGenerator(
-        name = "POSTER",
-        sequenceName = "POSTER_SEQ", // 매핑할 데이터베이스 시퀀스 이름
-        initialValue = 1,
-        allocationSize = 1)
+public class Poster extends Timestamped  {
 
-public class Poster {
-
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POSTER")
-    @Id
-    @Column
-    private Long poster_id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
+    private Long id;
 
     @Column(nullable = false)
     private String poster_title;
@@ -31,12 +28,19 @@ public class Poster {
     @Column(nullable = false)
     private String img_url;
 
-    @Column(nullable = false)
-    private int poster_cnt = 0;
+    @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
     public Poster(PosterRequestDto posterRequestDto) {
         this.poster_title = posterRequestDto.getPoster_title();
         this.quiz = posterRequestDto.getQuiz();
         this.img_url = posterRequestDto.getImg_url();
+    }
+
+    @Builder
+    public Poster(String poster_title, String quiz, String img_url){
+        this.poster_title = poster_title;
+        this.quiz = quiz;
+        this.img_url = img_url;
     }
 }
