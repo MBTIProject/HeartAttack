@@ -20,11 +20,6 @@ import java.util.stream.Collectors;
 public class PosterService {
     private final PosterRepository posterRepository;
 
-//    public Long update(Long poster_id){
-//        posterRepository.updatePoster(poster_id);
-//        return poster_id;
-//    }
-
     @Transactional(readOnly = false)
     public void addPost(PosterRequestDto posterRequestDto) {
 
@@ -43,9 +38,16 @@ public class PosterService {
     }
 
     public List<PosterResponseDto> findPost() {
-        List<PosterResponseDto> allPost = posterRepository.findAll().stream()
+        return posterRepository.findAll().stream()
                 .map(PosterResponseDto::new)
                 .collect(Collectors.toList());
-        return allPost;
+    }
+
+    @Transactional(readOnly = false)
+    public Optional<Poster> modifyPostCnt(Long posterId) {
+        Optional<Poster> findPostId = Optional.ofNullable(posterRepository.findById(posterId).orElseThrow(()
+                -> new ApiRequestException("존재하지 않는 유형입니다.")));
+        findPostId.get().updatePostCnt();
+        return findPostId;
     }
 }

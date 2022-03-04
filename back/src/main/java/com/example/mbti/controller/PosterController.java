@@ -3,16 +3,14 @@ package com.example.mbti.controller;
 import com.example.mbti.advice.GetAllPost;
 import com.example.mbti.advice.Success;
 import com.example.mbti.dto.PosterRequestDto;
-import com.example.mbti.dto.PosterResponseDto;
 import com.example.mbti.model.Poster;
-import com.example.mbti.repository.PosterRepository;
 import com.example.mbti.service.PosterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,10 +31,10 @@ public class PosterController {
         return new ResponseEntity<>(new GetAllPost(true,"심리테스트 유형 전제조회 완료",posterService.findPost()),HttpStatus.OK);
     }
 
-    //심리테스트 유형별 조회수
-//    @PutMapping("/main/list/{id}")
-//    public Long PostList(@PathVariable Long id){
-//        posterService.update(id);
-//        return id;
-//    }
+    //심리테스트 유형 조회수 증가
+    @PutMapping("/main/list/{posterId}")
+    public ResponseEntity<Success> PostViewCnt(@PathVariable Long posterId){
+        posterService.modifyPostCnt(posterId);
+        return new ResponseEntity<>(new Success(true,"심리테스트 조회수 증가 성공!"),HttpStatus.OK);
+    }
 }

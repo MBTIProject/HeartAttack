@@ -28,6 +28,9 @@ public class Poster extends Timestamped  {
     @Column(nullable = false)
     private String img_url;
 
+    @Column(columnDefinition = "integer default 0")
+    private int view_count;
+
     @OneToMany(mappedBy = "poster", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList = new ArrayList<>();
 
@@ -42,5 +45,9 @@ public class Poster extends Timestamped  {
         this.poster_title = poster_title;
         this.quiz = quiz;
         this.img_url = img_url;
+    }
+
+    public void updatePostCnt() {
+        this.view_count +=1;
     }
 }
