@@ -18,16 +18,12 @@ public class Comment extends Timestamped {
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Poster poster;
-
-    public Comment(CommentRequestDto commentRequestDto){
-        this.comment = commentRequestDto.getComment();
-    }
+    @JoinColumn(name = "survey_id")
+    private Survey survey;
 
     @Builder
-    public Comment(String comment, Poster poster){
+    public Comment(String comment, Survey survey){
         this.comment = comment;
-        this.poster = poster;
+        this.survey = survey;
     }
 }

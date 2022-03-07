@@ -1,40 +1,41 @@
 package com.example.mbti.model;
 
-import com.example.mbti.dto.PosterRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Poster extends Timestamped  {
+public class Selection extends Timestamped  {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
 
     @Column(nullable = false)
-    private String poster_title;
+    private String choice;
 
     @Column(nullable = false)
-    private String img_url;
+    private String choice_result;
 
     @Column(columnDefinition = "integer default 0")
-    private int poster_view_count;
+    private int choice_view_count;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "survey_id")
+    private Survey survey;
 
     @Builder
-    public Poster(String poster_title, String img_url){
-        this.poster_title = poster_title;
-        this.img_url = img_url;
+    public Selection(String choice, String choice_result){
+        this.choice = choice;
+        this.choice_result = choice_result;
     }
 
-    public void updatePostCnt() {
-        this.poster_view_count +=1;
+    public void updateSelectionCnt() {
+        this.choice_view_count +=1;
     }
 }

@@ -18,24 +18,11 @@ public class Survey extends Timestamped  {
     private Poster poster;
 
     @Column(nullable = false)
-    private String selection;
-
-    @Column(nullable = false)
-    private String answer_title;  //추가
-
-    @Column(columnDefinition = "TEXT",nullable = false)
-    private String answer;
-
-    public Survey(SurveyRequestDto surveyRequestDto) {
-        this.selection = surveyRequestDto.getSelection();
-        this.answer = surveyRequestDto.getAnswer();
-        this.answer_title = surveyRequestDto.getAnswer_title();
-    }
+    private String passage;
 
     @Builder
-    public Survey (String selection, String answer_title, String answer){
-        this.selection = selection;
-        this.answer_title = answer_title;
-        this.answer = answer;
+    public Survey (String passage, Poster poster){
+        this.passage = passage;
+        this.poster = poster;
     }
 }
