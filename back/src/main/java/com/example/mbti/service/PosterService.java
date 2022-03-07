@@ -4,7 +4,7 @@ import com.example.mbti.advice.exception.ApiRequestException;
 import com.example.mbti.dto.PosterRequestDto;
 import com.example.mbti.dto.PosterResponseDto;
 import com.example.mbti.model.Poster;
-import com.example.mbti.repository.PosterRepository;
+import com.example.mbti.repository.Poster.PosterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +36,8 @@ public class PosterService {
         }
     }
 
-    public List<PosterResponseDto> findPost() {
-        return posterRepository.findAll().stream()
-                .map(PosterResponseDto::new)
-                .collect(Collectors.toList());
+    public PosterResponseDto findPost() {
+        return posterRepository.findPosterList();
     }
 
     @Transactional(readOnly = false)
