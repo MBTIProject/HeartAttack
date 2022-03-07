@@ -16,13 +16,13 @@ public class GetPost {
 
     private Long post_id;
 
-    private int view_count;
+    private int poster_view_count;
 
     public GetPost(boolean success, String msg, Poster poster){
         this.success = success;
         this.msg = msg;
         this.post_id = poster.getId();
-        this.view_count = poster.getView_count();
+        this.poster_view_count = poster.getPoster_view_count();
     }
 
 }
