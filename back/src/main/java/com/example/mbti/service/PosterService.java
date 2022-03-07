@@ -28,7 +28,6 @@ public class PosterService {
             Poster poster = Poster.builder()
                     .poster_title(posterRequestDto.getPoster_title())
                     .img_url(posterRequestDto.getImg_url())
-                    .quiz(posterRequestDto.getQuiz())
                     .build();
             posterRepository.save(poster);
         }
