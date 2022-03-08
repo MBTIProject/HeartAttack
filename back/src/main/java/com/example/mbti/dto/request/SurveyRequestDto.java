@@ -1,4 +1,4 @@
-package com.example.mbti.dto;
+package com.example.mbti.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

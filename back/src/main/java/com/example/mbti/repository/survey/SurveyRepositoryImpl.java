@@ -1,19 +1,5 @@
 package com.example.mbti.repository.survey;
 
-import com.example.mbti.dto.SurveyResponseDto;
-import com.example.mbti.model.Poster;
-import com.example.mbti.model.QPoster;
-import com.example.mbti.model.QSurvey;
-import com.example.mbti.model.Survey;
-import com.querydsl.core.Tuple;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.example.mbti.model.QPoster.*;
-import static com.example.mbti.model.QSurvey.*;
-
 public class SurveyRepositoryImpl implements SurveyRepositoryCustom{
 
 //    private JPAQueryFactory jpaQueryFactory;

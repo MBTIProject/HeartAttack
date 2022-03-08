@@ -1,7 +1,6 @@
 package com.example.mbti.advice;
 
-import com.example.mbti.dto.PosterResponseDto;
-import com.example.mbti.dto.SurveyResponseDto;
+import com.example.mbti.dto.response.SurveyResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

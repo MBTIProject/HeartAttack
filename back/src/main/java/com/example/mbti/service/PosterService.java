@@ -1,7 +1,7 @@
 package com.example.mbti.service;
 
-import com.example.mbti.dto.PosterRequestDto;
-import com.example.mbti.dto.PosterResponseDto;
+import com.example.mbti.dto.request.PosterRequestDto;
+import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
 
 import java.util.List;

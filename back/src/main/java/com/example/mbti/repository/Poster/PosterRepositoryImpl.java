@@ -1,6 +1,6 @@
 package com.example.mbti.repository.Poster;
 
-import com.example.mbti.dto.PosterResponseDto;
+import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.model.Survey;
 import com.querydsl.core.Tuple;

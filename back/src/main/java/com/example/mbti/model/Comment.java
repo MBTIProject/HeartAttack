@@ -1,6 +1,5 @@
 package com.example.mbti.model;
 
-import com.example.mbti.dto.CommentRequestDto;
 import lombok.*;
 
 import javax.persistence.*;

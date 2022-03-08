@@ -1,6 +1,5 @@
 package com.example.mbti.model;
 
-import com.example.mbti.dto.SurveyRequestDto;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,7 +1,7 @@
 package com.example.mbti.service;
 
-import com.example.mbti.dto.CommentRequestDto;
-import com.example.mbti.dto.CommentResponseDto;
+import com.example.mbti.dto.request.CommentRequestDto;
+import com.example.mbti.dto.response.CommentResponseDto;
 
 import java.util.List;
 
