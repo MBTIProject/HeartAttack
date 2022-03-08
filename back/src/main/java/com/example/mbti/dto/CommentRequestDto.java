@@ -8,9 +8,5 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class CommentRequestDto {
-
-
     private String comment;
-
-    private Long poster_id;
 }
