@@ -18,11 +18,22 @@ public class Survey extends Timestamped  {
     private Poster poster;
 
     @Column(nullable = false)
-    private String passage;
+    private String choice;
+
+    @Column(nullable = false)
+    private String choice_result;
+
+    @Column(columnDefinition = "integer default 0")
+    private int choice_view_count;
 
     @Builder
-    public Survey (String passage, Poster poster){
-        this.passage = passage;
+    public Survey (String choice, String choice_result, Poster poster){
+        this.choice = choice;
+        this.choice_result = choice_result;
         this.poster = poster;
+    }
+
+    public void updateSelectionCnt() {
+        this.choice_view_count +=1;
     }
 }
