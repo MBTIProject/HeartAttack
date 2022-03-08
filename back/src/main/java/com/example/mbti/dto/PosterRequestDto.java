@@ -8,5 +8,5 @@ import lombok.Setter;
 public class PosterRequestDto {
     private String img_url;
     private String poster_title;
-    private String quiz;
+    private String passage;
 }
