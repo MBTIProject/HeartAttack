@@ -1,21 +1,13 @@
 package com.example.mbti.service;
 
-import com.example.mbti.repository.SurveyRepository;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.mbti.dto.SurveyRequestDto;
+import com.example.mbti.dto.SurveyResponseDto;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
-@Getter
-@RequiredArgsConstructor
-@Service
-public class SurveyService {
-    private final SurveyRepository surveyRepository;
+public interface SurveyService {
 
-    @Transactional
-    public Long update(Long id){
-        surveyRepository.updateSurvey(id);
-        return id;
-    }
+    int update(Long posterId,Long surveyId);
+    void addSurvey(SurveyRequestDto surveyRequestDto, Long posterId);
+    List<SurveyResponseDto> findPost(Long posterId);
 }
