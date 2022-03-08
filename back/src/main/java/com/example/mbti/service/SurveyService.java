@@ -1,7 +1,7 @@
 package com.example.mbti.service;
 
-import com.example.mbti.dto.SurveyRequestDto;
-import com.example.mbti.dto.SurveyResponseDto;
+import com.example.mbti.dto.request.SurveyRequestDto;
+import com.example.mbti.dto.response.SurveyResponseDto;
 
 import java.util.List;
 

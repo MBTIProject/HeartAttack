@@ -1,7 +1,7 @@
 package com.example.mbti.service.impl;
 
-import com.example.mbti.dto.SurveyRequestDto;
-import com.example.mbti.dto.SurveyResponseDto;
+import com.example.mbti.dto.request.SurveyRequestDto;
+import com.example.mbti.dto.response.SurveyResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.model.Survey;
 import com.example.mbti.repository.Poster.PosterRepository;

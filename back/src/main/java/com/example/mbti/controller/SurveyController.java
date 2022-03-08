@@ -2,17 +2,12 @@ package com.example.mbti.controller;
 
 import com.example.mbti.advice.GetAllSurvey;
 import com.example.mbti.advice.Success;
-import com.example.mbti.dto.SurveyRequestDto;
-import com.example.mbti.dto.SurveyResponseDto;
-import com.example.mbti.model.Survey;
-import com.example.mbti.repository.survey.SurveyRepository;
+import com.example.mbti.dto.request.SurveyRequestDto;
 import com.example.mbti.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

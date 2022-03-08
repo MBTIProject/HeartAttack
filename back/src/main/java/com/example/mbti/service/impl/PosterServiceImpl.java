@@ -1,8 +1,8 @@
 package com.example.mbti.service.impl;
 
 import com.example.mbti.advice.exception.ApiRequestException;
-import com.example.mbti.dto.PosterRequestDto;
-import com.example.mbti.dto.PosterResponseDto;
+import com.example.mbti.dto.request.PosterRequestDto;
+import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.service.PosterService;

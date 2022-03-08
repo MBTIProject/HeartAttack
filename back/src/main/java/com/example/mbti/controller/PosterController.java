@@ -2,7 +2,7 @@ package com.example.mbti.controller;
 
 import com.example.mbti.advice.GetAllPost;
 import com.example.mbti.advice.Success;
-import com.example.mbti.dto.PosterRequestDto;
+import com.example.mbti.dto.request.PosterRequestDto;
 import com.example.mbti.service.PosterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

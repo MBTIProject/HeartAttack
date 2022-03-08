@@ -1,4 +1,4 @@
-package com.example.mbti.dto;
+package com.example.mbti.dto.response;
 
 import com.example.mbti.model.Survey;
 import lombok.AllArgsConstructor;
