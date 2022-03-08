@@ -2,6 +2,7 @@ package com.example.mbti.dto;
 
 import com.example.mbti.model.Poster;
 import com.example.mbti.model.Survey;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class PosterResponseDto {
 
