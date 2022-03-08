@@ -1,13 +1,15 @@
 package com.example.mbti.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PosterRequestDto {
     private String img_url;
     private String poster_title;
-    private int poster_cnt;
-    private String quiz;
+    private String passage;
 }

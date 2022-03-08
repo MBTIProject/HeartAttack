@@ -21,10 +21,6 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "post_id")
     private Poster poster;
 
-    public Comment(CommentRequestDto commentRequestDto){
-        this.comment = commentRequestDto.getComment();
-    }
-
     @Builder
     public Comment(String comment, Poster poster){
         this.comment = comment;

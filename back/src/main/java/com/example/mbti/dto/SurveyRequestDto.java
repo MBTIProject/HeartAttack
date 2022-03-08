@@ -1,15 +1,17 @@
 package com.example.mbti.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SurveyRequestDto {
-    private String selection;
-    private int selection_id;
-    private String answer;
-    private String answer_title;
-    private Long poster_id;
-    private int answer_cnt;
+    private String choice;
+
+    private String choice_result;
 }
