@@ -1,0 +1,15 @@
+### 심리테스트 유형 추가
+POST localhost:7070/posts
+Content-Type: application/json
+
+{
+  "img_url": "",
+  "poster_title": "234",
+  "passage": ""
+}
+
+### 심리테스트 유형 조회
+GET localhost:7070/posts
+
+### 심리테스트 조회수 증가
+PUT localhost:7070/posts/1
