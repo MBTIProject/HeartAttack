@@ -24,11 +24,11 @@ public class PosterServiceImpl implements PosterService {
     @Transactional(readOnly = false)
     public void addPost(PosterRequestDto posterRequestDto) {
 
-        Optional<Poster> findPosterTitle = posterRepository.findByTitle(posterRequestDto.getPoster_title());
+        Optional<Poster> findPosterTitle = posterRepository.findByTitle(posterRequestDto.getPosterTitle());
         if(!findPosterTitle.isPresent()) {
             Poster poster = Poster.builder()
-                    .poster_title(posterRequestDto.getPoster_title())
-                    .img_url(posterRequestDto.getImg_url())
+                    .posterTitle(posterRequestDto.getPosterTitle())
+                    .imgUrl(posterRequestDto.getImgUrl())
                     .passage(posterRequestDto.getPassage())
                     .build();
             posterRepository.save(poster);

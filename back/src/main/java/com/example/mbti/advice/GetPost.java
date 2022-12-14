@@ -21,8 +21,8 @@ public class GetPost {
     public GetPost(boolean success, String msg, Poster poster){
         this.success = success;
         this.msg = msg;
-        this.post_id = poster.getId();
-        this.poster_view_count = poster.getPoster_view_count();
+        this.post_id = poster.getPosterId();
+        this.poster_view_count = poster.getPosterViewCount();
     }
 
 }

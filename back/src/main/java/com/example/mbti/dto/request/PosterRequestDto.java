@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PosterRequestDto {
-    private String img_url;
-    private String poster_title;
+    private String imgUrl;
+    private String posterTitle;
     private String passage;
 }

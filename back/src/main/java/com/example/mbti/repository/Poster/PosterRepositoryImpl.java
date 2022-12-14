@@ -23,7 +23,7 @@ public class PosterRepositoryImpl implements PosterRepositoryCustom {
         List<Tuple> result = jpaQueryFactory
                 .select(poster, survey)
                 .from(poster)
-                .leftJoin(survey).on(poster.id.eq(survey.poster.id)).fetchJoin()
+                .leftJoin(survey).on(poster.posterId.eq(survey.poster.posterId)).fetchJoin()
                 .fetch();
 
         List<Survey> surveyList = result.stream().

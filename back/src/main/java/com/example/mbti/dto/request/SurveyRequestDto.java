@@ -13,5 +13,5 @@ import javax.persistence.Column;
 public class SurveyRequestDto {
     private String choice;
 
-    private String choice_result;
+    private String choiceResult;
 }

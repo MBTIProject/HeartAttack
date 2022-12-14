@@ -13,29 +13,29 @@ import javax.persistence.*;
 public class Poster extends Timestamped  {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    private Long id;
+    @Column(name = "posterId")
+    private Long posterId;
 
     @Column(nullable = false)
-    private String poster_title;
+    private String posterTitle;
 
     @Column(nullable = false)
-    private String img_url;
+    private String imgUrl;
 
     @Column(columnDefinition = "integer default 0")
-    private int poster_view_count;
+    private int posterViewCount;
 
     @Column(nullable = false)
     private String passage;
 
     @Builder
-    public Poster(String poster_title, String img_url, String passage){
-        this.poster_title = poster_title;
-        this.img_url = img_url;
+    public Poster(String posterTitle, String imgUrl, String passage){
+        this.posterTitle = posterTitle;
+        this.imgUrl = imgUrl;
         this.passage = passage;
     }
 
     public void updatePostCnt() {
-        this.poster_view_count +=1;
+        this.posterViewCount +=1;
     }
 }

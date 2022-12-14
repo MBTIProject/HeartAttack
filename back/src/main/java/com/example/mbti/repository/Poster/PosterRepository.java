@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface PosterRepository extends JpaRepository<Poster, Long>, PosterRepositoryCustom {
 
-    @Query("SELECT p from Poster p where p.poster_title =:poster_title")
-    Optional<Poster> findByTitle(@Param("poster_title") String poster_title);
+    @Query("SELECT p from Poster p where p.posterTitle =:poster_title")
+    Optional<Poster> findByTitle(@Param("poster_title") String posterTitle);
 }

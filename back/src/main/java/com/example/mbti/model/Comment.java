@@ -10,14 +10,14 @@ import javax.persistence.*;
 public class Comment extends Timestamped {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
-    private Long id;
+    @Column(name = "commentId")
+    private Long commentId;
 
     @Column(nullable = false)
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "posterId")
     private Poster poster;
 
     @Builder

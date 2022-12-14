@@ -29,7 +29,7 @@ public class SurveyServiceImpl implements SurveyService {
     public int update(Long posterId,Long surveyId){
         Optional<Survey> byPoster_idAndSurvey_id = surveyRepository.findByPoster_idAndSurvey_id(posterId, surveyId);
         byPoster_idAndSurvey_id.get().updateSelectionCnt();
-        return byPoster_idAndSurvey_id.get().getChoice_view_count();
+        return byPoster_idAndSurvey_id.get().getChoiceViewCount();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SurveyServiceImpl implements SurveyService {
         Survey survey = Survey.builder()
                 .poster(findPosterId.get())
                 .choice(surveyRequestDto.getChoice())
-                .choice_result(surveyRequestDto.getChoice_result())
+                .choiceResult(surveyRequestDto.getChoiceResult())
                 .build();
         surveyRepository.save(survey);
     }

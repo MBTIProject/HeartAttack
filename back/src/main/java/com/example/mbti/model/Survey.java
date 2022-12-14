@@ -9,30 +9,30 @@ import javax.persistence.*;
 @Entity
 public class Survey extends Timestamped  {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "survey_id")
-    private Long id;
+    @Column(name = "surveyId")
+    private Long surveyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "posterId")
     private Poster poster;
 
     @Column(nullable = false)
     private String choice;
 
     @Column(nullable = false)
-    private String choice_result;
+    private String choiceResult;
 
     @Column(columnDefinition = "integer default 0")
-    private int choice_view_count;
+    private int choiceViewCount;
 
     @Builder
-    public Survey (String choice, String choice_result, Poster poster){
+    public Survey (String choice, String choiceResult, Poster poster){
         this.choice = choice;
-        this.choice_result = choice_result;
+        this.choiceResult = choiceResult;
         this.poster = poster;
     }
 
     public void updateSelectionCnt() {
-        this.choice_view_count +=1;
+        this.choiceViewCount +=1;
     }
 }
