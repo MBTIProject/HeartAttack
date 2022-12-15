@@ -24,8 +24,8 @@ class SurveyRepositoryTest {
         String imgUrl = "심리테스트 유형 주소1";
         String passage = "심리테스트 유형 지문";
         Poster poster = Poster.builder()
-                .poster_title(posterTitle)
-                .img_url(imgUrl)
+                .posterTitle(posterTitle)
+                .imgUrl(imgUrl)
                 .passage(passage)
                 .build();
 
@@ -33,8 +33,8 @@ class SurveyRepositoryTest {
         Poster savePoster = posterRepository.save(poster);
 
         //then
-        Assertions.assertThat(savePoster.getPoster_title()).isEqualTo(posterTitle);
-        Assertions.assertThat(savePoster.getImg_url()).isEqualTo(imgUrl);
+        Assertions.assertThat(savePoster.getPosterTitle()).isEqualTo(posterTitle);
+        Assertions.assertThat(savePoster.getImgUrl()).isEqualTo(imgUrl);
         Assertions.assertThat(savePoster.getPassage()).isEqualTo(passage);
     }
 }
