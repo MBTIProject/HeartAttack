@@ -1,12 +1,17 @@
 package com.example.mbti.repository.Poster;
 
+import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
+import com.example.mbti.model.Survey;
+import com.example.mbti.repository.survey.SurveyRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -17,6 +22,9 @@ class PosterRepositoryTest {
 
     @Autowired
     private PosterRepository posterRepository;
+
+    @Autowired
+    private SurveyRepository surveyRepository;
 
     @BeforeEach
     void 데이터준비(){
@@ -30,6 +38,19 @@ class PosterRepositoryTest {
                 .passage(passage)
                 .build();
         posterRepository.save(poster);
+
+        String choice = "선택지";
+        String choiceResult ="결과";
+        List<Survey> surveyList = new ArrayList<>();
+        for(int i=0; i<5; i++){
+            Survey survey = Survey.builder()
+                    .poster(poster)
+                    .choiceResult(choiceResult+i)
+                    .choice(choice+i)
+                    .build();
+            surveyList.add(survey);
+        }
+        surveyRepository.saveAll(surveyList);
     }
 
     @Test
@@ -46,7 +67,7 @@ class PosterRepositoryTest {
     }
 
     @Test
-    void 심리테스트유형추가(){
+    void 심리테스트_유형추가(){
         //given
         String posterTitle = "심리테스트 유형 제목2";
         String passage = "지문2";
@@ -65,5 +86,15 @@ class PosterRepositoryTest {
         assertThat(savePoster.getPosterTitle()).isEqualTo(posterTitle);
         assertThat(savePoster.getPassage()).isEqualTo(passage);
         assertThat(savePoster.getImgUrl()).isEqualTo(imgUrl);
+    }
+
+    @Test
+    void 심리테스트유형_전체조회(){
+
+        //when
+        PosterResponseDto posterList = posterRepository.findPosterList();
+
+        //then
+
     }
 }
