@@ -44,4 +44,26 @@ class PosterRepositoryTest {
         assertThat(optPoster.get().getPassage()).isEqualTo("지문");
         assertThat(optPoster.get().getImgUrl()).isEqualTo("심리테스트 이미지주소");
     }
+
+    @Test
+    void 심리테스트유형추가(){
+        //given
+        String posterTitle = "심리테스트 유형 제목2";
+        String passage = "지문2";
+        String imgUrl = "심리테스트 이미지주소2";
+
+        Poster poster = Poster.builder()
+                .posterTitle(posterTitle)
+                .imgUrl(imgUrl)
+                .passage(passage)
+                .build();
+
+        //when
+        Poster savePoster = posterRepository.save(poster);
+
+        //then
+        assertThat(savePoster.getPosterTitle()).isEqualTo(posterTitle);
+        assertThat(savePoster.getPassage()).isEqualTo(passage);
+        assertThat(savePoster.getImgUrl()).isEqualTo(imgUrl);
+    }
 }
