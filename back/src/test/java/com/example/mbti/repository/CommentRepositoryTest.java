@@ -3,13 +3,15 @@ package com.example.mbti.repository;
 import com.example.mbti.model.Comment;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.Poster.PosterRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 class CommentRepositoryTest {
@@ -48,8 +50,29 @@ class CommentRepositoryTest {
         Comment saveComment = commentRepository.save(commentEntity);
 
         //then
-        Assertions.assertThat(saveComment.getPoster().getPosterId()).isEqualTo(optPoster.get().getPosterId());
+        assertThat(saveComment.getPoster().getPosterId()).isEqualTo(optPoster.get().getPosterId());
+        assertThat(saveComment.getComment()).isEqualTo(commentEntity.getComment());
+    }
 
+    @Test
+    void 심리테스트로댓글조회(){
+        //given
+        String comment = "댓글내용";
+        Optional<Poster> optPoster = posterRepository.findByTitle("심리테스트 유형 제목1");
+
+        Comment commentEntity = Comment.builder()
+                .comment(comment)
+                .poster(optPoster.get())
+                .build();
+        Comment saveComment = commentRepository.save(commentEntity);
+
+        //when
+        List<Comment> commentList = commentRepository.findByPosterId(optPoster.get().getPosterId());
+
+        //then
+        assertThat(commentList.size()).isEqualTo(1);
+        assertThat(commentList.get(0).getCommentId()).isEqualTo(saveComment.getCommentId());
+        assertThat(commentList.get(0).getComment()).isEqualTo(saveComment.getComment());
     }
 
 }
