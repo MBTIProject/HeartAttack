@@ -3,8 +3,8 @@ POST http://localhost:7070/survey/1
 Content-Type: application/json
 
 {
-  "choice": "2",
-  "choice_result": "2"
+  "choice": "3",
+  "choiceResult": "3"
 }
 
 ### 심리테스트 지문 조회
