@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "1.9"
+sourceCompatibility = "11"
 
 configurations {
     compileOnly {
@@ -34,6 +34,7 @@ dependencies {
     implementation "io.springfox:springfox-swagger-ui:3.0.0"
     implementation "io.springfox:springfox-boot-starter:3.0.0"
     implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
 }
 
 //querydsl 추가 시작
@@ -56,4 +57,4 @@ compileQuerydsl {
 test {
     useJUnitPlatform()
 }
-targetCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_11
