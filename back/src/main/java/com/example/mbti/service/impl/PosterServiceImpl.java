@@ -40,7 +40,7 @@ public class PosterServiceImpl implements PosterService {
 
     @Override
     public List<PosterResponseDto> findPost() {
-        return posterRepository.findAll().stream()
+        return posterRepository.findAllPosterAndSurvey().stream()
                 .map(PosterResponseDto::new)
                 .collect(Collectors.toList());
     }
