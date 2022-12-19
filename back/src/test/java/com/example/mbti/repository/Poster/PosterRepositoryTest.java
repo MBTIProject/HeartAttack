@@ -92,9 +92,10 @@ class PosterRepositoryTest {
     void 심리테스트유형_전체조회(){
 
         //when
-        PosterResponseDto posterList = posterRepository.findPosterList();
+        List<Poster> allPosterAndSurvey = posterRepository.findAllPosterAndSurvey();
 
         //then
-
+        assertThat(allPosterAndSurvey.size()).isEqualTo(1);
+        assertThat(allPosterAndSurvey.get(0).getSurveyList().size()).isEqualTo(5);
     }
 }
