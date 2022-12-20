@@ -19,6 +19,7 @@ public class PosterResponseDto {
     private String img_url;
     private int posterViewCount;
     private LocalDateTime date;
+    private String passage;
     private List<SurveyResponseDto> surveyResponseDto;
     
     @Builder
@@ -38,6 +39,7 @@ public class PosterResponseDto {
         this.surveyResponseDto = poster.getSurveyList().stream()
                 .map(SurveyResponseDto::new)
                 .collect(Collectors.toList());
+        this.passage = poster.getPassage();
     }
 
     public static PosterResponseDto of(final List<Survey> surveyList, final Poster poster){

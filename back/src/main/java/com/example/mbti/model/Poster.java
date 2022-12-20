@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -27,6 +29,9 @@ public class Poster extends Timestamped  {
 
     @Column(nullable = false)
     private String passage;
+
+    @OneToMany(mappedBy = "poster")
+    private List<Survey> surveyList = new ArrayList<>();
 
     @Builder
     public Poster(String posterTitle, String imgUrl, String passage){

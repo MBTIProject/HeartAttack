@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PosterService {
-    void addPost(PosterRequestDto posterRequestDto);
+    PosterResponseDto addPost(PosterRequestDto posterRequestDto);
     List<PosterResponseDto> findPost();
     Optional<Poster> modifyPostCnt(Long posterId);
 

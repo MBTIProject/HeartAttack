@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class PosterRequestDto {
     private String imgUrl;
     private String posterTitle;
