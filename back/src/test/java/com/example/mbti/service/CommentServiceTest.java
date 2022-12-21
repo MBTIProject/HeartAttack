@@ -1,6 +1,7 @@
 package com.example.mbti.service;
 
 import com.example.mbti.dto.request.CommentRequestDto;
+import com.example.mbti.dto.response.CommentResponseDto;
 import com.example.mbti.model.Comment;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.CommentRepository;
@@ -13,8 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -60,6 +64,42 @@ class CommentServiceTest {
         String addComment = commentService.addComment(poster.getPosterId(), dto);
 
         //then
-        Assertions.assertThat(addComment).isEqualTo(dto.getComment());
+        assertThat(addComment).isEqualTo(dto.getComment());
+    }
+
+    @Test
+    void 댓글조회(){
+        //given
+        String posterTitle = "심리테스트 유형 제목";
+        String passage = "지문";
+        String imgUrl = "심리테스트 이미지주소";
+
+        Poster poster = Poster.builder()
+                .posterId(1L)
+                .posterTitle(posterTitle)
+                .imgUrl(imgUrl)
+                .passage(passage)
+                .build();
+
+        List<Comment> commentList = new ArrayList<>();
+        for(int i=0; i<5; i++){
+            Comment comment = Comment.builder()
+                    .comment("댓글"+i)
+                    .poster(poster)
+                    .build();
+            commentList.add(comment);
+        }
+
+
+        //stub
+        when(commentRepository.findByPosterId(1L)).thenReturn(commentList);
+
+        //when
+        List<CommentResponseDto> comments = commentService.findComment(1L);
+
+        //then
+        assertThat(comments.size()).isEqualTo(5);
+        assertThat(comments.get(0).getComment()).isEqualTo("댓글0");
+        assertThat(comments.get(4).getComment()).isEqualTo("댓글4");
     }
 }
