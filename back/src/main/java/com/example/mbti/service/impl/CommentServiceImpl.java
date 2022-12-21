@@ -25,13 +25,13 @@ public class CommentServiceImpl implements CommentService {
     private final PosterRepository posterRepository;
     @Override
     @Transactional(readOnly = false)
-    public void addComment(Long posterId, CommentRequestDto commentRequestDto) {
+    public String addComment(Long posterId, CommentRequestDto commentRequestDto) {
         Optional<Poster> findPosterId = posterRepository.findById(posterId);
         Comment comment = Comment.builder()
                 .comment(commentRequestDto.getComment())
                 .poster(findPosterId.get())
                 .build();
-        commentRepository.save(comment);
+        return commentRepository.save(comment).getComment();
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.example.mbti.dto.response.CommentResponseDto;
 import java.util.List;
 
 public interface CommentService {
-    void addComment(Long posterId, CommentRequestDto commentRequestDto);
+    String addComment(Long posterId, CommentRequestDto commentRequestDto);
     List<CommentResponseDto> findComment(Long posterId);
 
 }

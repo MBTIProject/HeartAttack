@@ -3,8 +3,8 @@ package com.example.mbti.dto.request;
 import lombok.*;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class CommentRequestDto {
     private String comment;
 }
