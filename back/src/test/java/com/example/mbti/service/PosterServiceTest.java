@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -79,5 +80,25 @@ class PosterServiceTest {
         assertThat(postList.get(2).getImg_url()).isEqualTo("심리테스트 유형 이미지 주소2");
         assertThat(postList.get(3).getPassage()).isEqualTo("심리테스트 지문3");
         assertThat(postList).isNotEmpty();
+    }
+
+    @Test
+    void 심리테스트_유형_조회수(){
+        //given
+        Long posterId = 1L;
+        Optional<Poster> poster = Optional.of(Poster.builder()
+                .posterId(posterId)
+                .posterTitle("심리테스트 유형1")
+                .imgUrl("심리테스트 유형 이미지 주소1")
+                .passage("심리테스트 지문1")
+                .build());
+        //stub
+        when(posterRepository.findById(posterId)).thenReturn(poster);
+
+        //when
+        Poster modifyPoster = posterService.modifyPostCnt(posterId).get();
+
+        //then
+        assertThat(modifyPoster.getPosterViewCount()).isEqualTo(1);
     }
 }

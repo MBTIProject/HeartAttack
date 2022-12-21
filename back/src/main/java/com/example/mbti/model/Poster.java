@@ -34,7 +34,8 @@ public class Poster extends Timestamped  {
     private List<Survey> surveyList = new ArrayList<>();
 
     @Builder
-    public Poster(String posterTitle, String imgUrl, String passage){
+    public Poster(Long posterId, String posterTitle, String imgUrl, String passage){
+        this.posterId = posterId;
         this.posterTitle = posterTitle;
         this.imgUrl = imgUrl;
         this.passage = passage;
