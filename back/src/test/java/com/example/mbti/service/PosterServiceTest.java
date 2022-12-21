@@ -12,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -50,5 +53,31 @@ class PosterServiceTest {
         assertThat(posterResponseDto.getPosterTitle()).isEqualTo(dto.getPosterTitle());
         assertThat(posterResponseDto.getImg_url()).isEqualTo(dto.getImgUrl());
         assertThat(posterResponseDto.getPassage()).isEqualTo(dto.getPassage());
+    }
+
+    @Test
+    void 심리테스트_유형_조회(){
+        //given
+        List<Poster> posterList = new ArrayList<>();
+        for(int i=0; i<5; i++){
+            Poster poster = Poster.builder()
+                    .posterTitle("심리테스트 유형" + i)
+                    .imgUrl("심리테스트 유형 이미지 주소" + i)
+                    .passage("심리테스트 지문" + i)
+                    .build();
+            posterList.add(poster);
+        }
+        //stub
+        when(posterRepository.findAllPosterAndSurvey()).thenReturn(posterList);
+
+        //when
+        List<PosterResponseDto> postList = posterService.findPost();
+
+        //then
+        assertThat(postList.size()).isEqualTo(5);
+        assertThat(postList.get(1).getPosterTitle()).isEqualTo("심리테스트 유형1");
+        assertThat(postList.get(2).getImg_url()).isEqualTo("심리테스트 유형 이미지 주소2");
+        assertThat(postList.get(3).getPassage()).isEqualTo("심리테스트 지문3");
+        assertThat(postList).isNotEmpty();
     }
 }
