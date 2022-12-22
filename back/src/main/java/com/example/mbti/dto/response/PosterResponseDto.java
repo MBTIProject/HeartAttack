@@ -16,7 +16,7 @@ public class PosterResponseDto {
 
     private Long posterId;
     private String posterTitle;
-    private String img_url;
+    private String imgUrl;
     private int posterViewCount;
     private LocalDateTime date;
     private String passage;
@@ -26,14 +26,14 @@ public class PosterResponseDto {
     public PosterResponseDto(final Long poster_id, final String poster_title, final String img_url, final int poster_view_count, final List<SurveyResponseDto> survey_id){
         this.posterId = poster_id;
         this.posterTitle = poster_title;
-        this.img_url = img_url;
+        this.imgUrl = img_url;
         this.posterViewCount = poster_view_count;
     }
 
     public PosterResponseDto(Poster poster) {
         this.posterId = poster.getPosterId();
         this.posterTitle = poster.getPosterTitle();
-        this.img_url = poster.getImgUrl();
+        this.imgUrl = poster.getImgUrl();
         this.posterViewCount = poster.getPosterViewCount();
         this.date = poster.getModifiedAt();
         this.surveyResponseDto = poster.getSurveyList().stream()

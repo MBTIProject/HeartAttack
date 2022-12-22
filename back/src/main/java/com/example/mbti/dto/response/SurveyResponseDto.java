@@ -15,12 +15,9 @@ public class SurveyResponseDto {
 
     private int choiceViewCount;
 
-    private String passage;
-
     public SurveyResponseDto(Survey survey) {
         this.choice = survey.getChoice();
         this.choiceResult = survey.getChoiceResult();
         this.choiceViewCount = survey.getChoiceViewCount();
-        this.passage = survey.getPoster().getPassage();
     }
 }

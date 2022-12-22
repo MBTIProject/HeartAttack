@@ -52,7 +52,7 @@ class PosterServiceTest {
 
         //then
         assertThat(posterResponseDto.getPosterTitle()).isEqualTo(dto.getPosterTitle());
-        assertThat(posterResponseDto.getImg_url()).isEqualTo(dto.getImgUrl());
+        assertThat(posterResponseDto.getImgUrl()).isEqualTo(dto.getImgUrl());
         assertThat(posterResponseDto.getPassage()).isEqualTo(dto.getPassage());
     }
 
@@ -77,7 +77,7 @@ class PosterServiceTest {
         //then
         assertThat(postList.size()).isEqualTo(5);
         assertThat(postList.get(1).getPosterTitle()).isEqualTo("심리테스트 유형1");
-        assertThat(postList.get(2).getImg_url()).isEqualTo("심리테스트 유형 이미지 주소2");
+        assertThat(postList.get(2).getImgUrl()).isEqualTo("심리테스트 유형 이미지 주소2");
         assertThat(postList.get(3).getPassage()).isEqualTo("심리테스트 지문3");
         assertThat(postList).isNotEmpty();
     }

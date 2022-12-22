@@ -8,6 +8,6 @@ import java.util.List;
 public interface SurveyService {
 
     int update(Long posterId,Long surveyId);
-    void addSurvey(SurveyRequestDto surveyRequestDto, Long posterId);
+    SurveyResponseDto addSurvey(SurveyRequestDto surveyRequestDto, Long posterId);
     List<SurveyResponseDto> findPost(Long posterId);
 }

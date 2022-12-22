@@ -8,8 +8,8 @@ import lombok.Setter;
 import javax.persistence.Column;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class SurveyRequestDto {
     private String choice;
 

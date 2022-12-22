@@ -25,18 +25,17 @@ public class PosterServiceImpl implements PosterService {
     public PosterResponseDto addPost(PosterRequestDto posterRequestDto) {
 
         Optional<Poster> findPosterTitle = posterRepository.findByTitle(posterRequestDto.getPosterTitle());
-        if(!findPosterTitle.isEmpty()) {
+        if(findPosterTitle.isEmpty()) {
             Poster poster = Poster.builder()
                     .posterTitle(posterRequestDto.getPosterTitle())
                     .imgUrl(posterRequestDto.getImgUrl())
                     .passage(posterRequestDto.getPassage())
                     .build();
-            posterRepository.save(poster);
+            return new PosterResponseDto(posterRepository.save(poster));
         }
         else {
             throw new ApiRequestException("동일한 심리테스트 제목이 존재합니다.");
         }
-        return new PosterResponseDto(findPosterTitle.get());
     }
 
     @Override

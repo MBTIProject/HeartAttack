@@ -34,14 +34,14 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     @Transactional
-    public void addSurvey(SurveyRequestDto surveyRequestDto, Long posterId) {
+    public SurveyResponseDto addSurvey(SurveyRequestDto surveyRequestDto, Long posterId) {
         Optional<Poster> findPosterId = posterRepository.findById(posterId);
         Survey survey = Survey.builder()
                 .poster(findPosterId.get())
                 .choice(surveyRequestDto.getChoice())
                 .choiceResult(surveyRequestDto.getChoiceResult())
                 .build();
-        surveyRepository.save(survey);
+        return new SurveyResponseDto(surveyRepository.save(survey));
     }
 
     @Override

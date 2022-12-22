@@ -3,6 +3,7 @@ package com.example.mbti.controller;
 import com.example.mbti.advice.GetAllPost;
 import com.example.mbti.advice.Success;
 import com.example.mbti.dto.request.PosterRequestDto;
+import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.service.PosterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class PosterController {
     //심리테스트 유형 추가
     @PostMapping("")
     public ResponseEntity<Success> createPost(@RequestBody PosterRequestDto posterRequestDto){
-        posterService.addPost(posterRequestDto);
-        return new ResponseEntity<>(new Success(true,"심리테스트 유형 등록 성공!"), HttpStatus.OK);
+        PosterResponseDto posterResponseDto = posterService.addPost(posterRequestDto);
+        return new ResponseEntity<>(new Success(true,"심리테스트 유형 등록 성공!", posterResponseDto), HttpStatus.OK);
     }
 
     //심리테스트 유형 전체조회
