@@ -112,4 +112,18 @@ class PosterControllerTest {
         assertThat(passage4).isEqualTo("심리테스트 유형 지문4");
         assertThat(objectSize).isEqualTo(5);
     }
+
+    @Test
+    void 심리테스트_조회수(){
+        //given
+
+        //when
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/posts/1", HttpMethod.PUT, request, String.class);
+
+        //then
+        Poster poster = posterRepository.findById(1L).get();
+        assertThat(poster.getPosterViewCount()).isEqualTo(1);
+
+    }
 }
