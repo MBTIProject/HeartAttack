@@ -73,6 +73,7 @@ class CommentControllerTest {
 
         //then
         List<Comment> commentList = commentRepository.findByPosterId(posterId);
+        assertThat(response.getStatusCodeValue()).isEqualTo(200);
         assertThat(commentList.size()).isEqualTo(1);
         assertThat(commentList.get(0).getComment()).isEqualTo(commentRequestDto.getComment());
 
