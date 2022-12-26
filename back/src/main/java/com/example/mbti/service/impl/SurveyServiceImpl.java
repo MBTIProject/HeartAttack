@@ -11,9 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.mbti.advice.ResultInfo.makeResultMap;
 
 @RequiredArgsConstructor
 @Service
@@ -45,9 +48,10 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveyResponseDto> findPost(Long posterId) {
-        return surveyRepository.findByPoster_id(posterId).stream()
+    public HashMap<String, Object> findPost(Long posterId) {
+        List<SurveyResponseDto> surveyList = surveyRepository.findByPoster_id(posterId).stream()
                 .map(SurveyResponseDto::new)
                 .collect(Collectors.toList());
+        return makeResultMap(surveyList);
     }
 }

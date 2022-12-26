@@ -23,8 +23,8 @@ public class SurveyController {
     }
     //심리테스트 선택지, 결과 조회
     @GetMapping("/{posterId}")
-    public ResponseEntity<GetAllSurvey> PostList(@PathVariable Long posterId) {
-        return new ResponseEntity<>(new GetAllSurvey(true,"심리테스트 지문 조회",surveyService.findPost(posterId)), HttpStatus.OK);
+    public ResponseEntity<Success> PostList(@PathVariable Long posterId) {
+        return new ResponseEntity<>(new Success(true,"심리테스트 지문 조회",surveyService.findPost(posterId)), HttpStatus.OK);
     }
 
     //심리테스트 결과 조회수
