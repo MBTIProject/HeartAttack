@@ -84,8 +84,8 @@ class CommentControllerTest {
         //then
         List<Comment> commentList = commentRepository.findByPosterId(posterId);
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
-        assertThat(commentList.size()).isEqualTo(1);
-        assertThat(commentList.get(0).getComment()).isEqualTo(commentRequestDto.getComment());
+        assertThat(commentList.size()).isEqualTo(6);
+        assertThat(commentList.get(5).getComment()).isEqualTo(commentRequestDto.getComment());
     }
 
     @Test
@@ -104,10 +104,9 @@ class CommentControllerTest {
         Integer Id = dc.read("$.data.data[0].posterId");
         String comment = dc.read("$.data.data[1].comment");
         String msg = dc.read("$.msg");
-
         assertThat(Id).isEqualTo(Integer.valueOf(Math.toIntExact(posterId)));
         assertThat(msg).isEqualTo("댓글 조회 성공!");
-        assertThat(comment).isEqualTo("댓글1");
+        assertThat(comment).isEqualTo("댓글내용1");
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
     }
 }
