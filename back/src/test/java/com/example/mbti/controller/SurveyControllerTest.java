@@ -20,6 +20,7 @@ import org.springframework.http.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,6 +58,17 @@ class SurveyControllerTest {
                     .build();
             posterList.add(poster);
         }posterRepository.saveAll(posterList);
+
+        Poster poster = posterRepository.findById(1L).get();
+        List<Survey> surveyList = new ArrayList<>();
+        for(int i=0; i<5; i++){
+            Survey survey = Survey.builder()
+                    .choice("선택지"+i)
+                    .choiceResult("결과"+i)
+                    .poster(poster)
+                    .build();
+            surveyList.add(survey);
+        }surveyRepository.saveAll(surveyList);
     }
 
     @Test
@@ -80,6 +92,28 @@ class SurveyControllerTest {
         assertThat(posterList.size()).isEqualTo(1);
         assertThat(posterList.get(0).getChoice()).isEqualTo(surveyRequestDto.getChoice());
         assertThat(posterList.get(0).getChoiceResult()).isEqualTo(surveyRequestDto.getChoiceResult());
+    }
+
+    @Test
+    void 심리테스트_결과_조회수(){
+        //given
+        Long posterId = 1L;
+        Long surveyId = 1L;
+
+        //when
+        HttpEntity<String> request = new HttpEntity<>( headers);
+        ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId+"/"+surveyId, HttpMethod.PUT, request, String.class);
+
+        System.out.println(response);
+
+        //then
+        Survey survey = surveyRepository.findByPoster_id(posterId).stream()
+                .filter(s -> s.getSurveyId().equals(surveyId))
+                .findFirst().get();
+
+        assertThat(survey.getChoiceViewCount()).isEqualTo(1);
+        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+
     }
 
 }
