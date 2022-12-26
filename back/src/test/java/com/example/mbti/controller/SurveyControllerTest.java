@@ -9,6 +9,8 @@ import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.repository.survey.SurveyRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -104,8 +106,6 @@ class SurveyControllerTest {
         HttpEntity<String> request = new HttpEntity<>( headers);
         ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId+"/"+surveyId, HttpMethod.PUT, request, String.class);
 
-        System.out.println(response);
-
         //then
         Survey survey = surveyRepository.findByPoster_id(posterId).stream()
                 .filter(s -> s.getSurveyId().equals(surveyId))
@@ -113,7 +113,27 @@ class SurveyControllerTest {
 
         assertThat(survey.getChoiceViewCount()).isEqualTo(1);
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
+    }
 
+    @Test
+    void 심리테스트_선택지_결과_조회(){
+        //given
+        Long posterId = 1L;
+
+        //then
+        HttpEntity<String> request = new HttpEntity<>( headers);
+        ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId, HttpMethod.GET, request, String.class);
+
+        //when
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        String choice = dc.read("$.data.data[0].choice");
+        String choiceResult = dc.read("$.data.data[1].choiceResult");
+        Integer choiceViewCount = dc.read("$.data.data[2].choiceViewCount");
+
+        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        assertThat(choice).isEqualTo("선택지0");
+        assertThat(choiceResult).isEqualTo("결과1");
+        assertThat(choiceViewCount).isEqualTo(0);
     }
 
 }
