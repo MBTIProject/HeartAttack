@@ -21,12 +21,12 @@ jobs:
           distribution: 'adopt'
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+        run: chmod +x ./back/gradlew
 
       - name: Set Yaml
         uses: microsoft/variable-substitution@v1
         with:
-          files: ./src/main/resources/application.yml
+          files: ./back/src/main/resources/application.yml
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./back/gradlew build
