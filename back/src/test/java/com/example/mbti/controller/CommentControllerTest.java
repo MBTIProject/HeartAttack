@@ -7,6 +7,8 @@ import com.example.mbti.repository.CommentRepository;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,13 +56,21 @@ class CommentControllerTest {
                     .build();
             posterList.add(poster);
         }posterRepository.saveAll(posterList);
+
+        List<Comment> commentList = new ArrayList<>();
+        for(int i = 0; i<5; i++){
+            Comment comment = Comment.builder()
+                    .comment("댓글내용"+i)
+                    .poster(posterRepository.findAllPosterAndSurvey().stream().findFirst().get())
+                    .build();
+            commentList.add(comment);
+        }commentRepository.saveAll(commentList);
     }
 
     @Test
-    void 댓글등록() throws JsonProcessingException {
+    void 심리테스트_유형별_댓글_등록() throws JsonProcessingException {
         //given
         Long posterId = 1L;
-        Poster posterById = posterRepository.findById(posterId).get();
 
         CommentRequestDto commentRequestDto = new CommentRequestDto();
         commentRequestDto.setComment("댓글1");
@@ -76,7 +86,28 @@ class CommentControllerTest {
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
         assertThat(commentList.size()).isEqualTo(1);
         assertThat(commentList.get(0).getComment()).isEqualTo(commentRequestDto.getComment());
-
     }
 
+    @Test
+    void 심리테스트_유형별_댓글_조회(){
+        //given
+        Long posterId = 1L;
+
+        //when
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange("/"+posterId +"/comments", HttpMethod.GET, request, String.class);
+
+        System.out.println("response = " + response);
+
+        //then
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer Id = dc.read("$.data.data[0].posterId");
+        String comment = dc.read("$.data.data[1].comment");
+        String msg = dc.read("$.msg");
+
+        assertThat(Id).isEqualTo(Integer.valueOf(Math.toIntExact(posterId)));
+        assertThat(msg).isEqualTo("댓글 조회 성공!");
+        assertThat(comment).isEqualTo("댓글1");
+        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+    }
 }

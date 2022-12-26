@@ -11,9 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.mbti.advice.ResultInfo.makeResultMap;
 
 @RequiredArgsConstructor
 @Service
@@ -35,9 +38,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentResponseDto> findComment(Long posterId) {
-        return commentRepository.findByPosterId(posterId).stream()
+    public HashMap<String, Object> findComment(Long posterId) {
+        List<CommentResponseDto> commentList = commentRepository.findByPosterId(posterId).stream()
                 .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
+        return makeResultMap(commentList);
     }
 }

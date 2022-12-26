@@ -25,7 +25,7 @@ public class CommentController {
 
     //심리테스트 유형별 댓글 조회
     @GetMapping("/comments")
-    public ResponseEntity<GetAllComment> selectComment(@PathVariable Long posterId) {
-        return new ResponseEntity<>(new GetAllComment(true,"댓글 조회 성공!",commentService.findComment(posterId)),HttpStatus.OK);
+    public ResponseEntity<Success> selectComment(@PathVariable Long posterId) {
+        return new ResponseEntity<>(new Success(true,"댓글 조회 성공!", commentService.findComment(posterId)),HttpStatus.OK);
     }
 }
