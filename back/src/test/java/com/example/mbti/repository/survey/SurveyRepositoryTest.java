@@ -48,7 +48,7 @@ class SurveyRepositoryTest {
         String choice = "선택지";
         String choiceResult = "결과";
 
-        Poster poster = posterRepository.findByTitle("심리테스트 유형 제목1").get();
+        Poster poster = posterRepository.findByPosterTitle("심리테스트 유형 제목1").get();
         List<Survey> surveyList = new ArrayList<>();
         for(int i=0; i<5; i++){
             Survey survey = Survey.builder()
@@ -61,7 +61,7 @@ class SurveyRepositoryTest {
         surveyRepository.saveAll(surveyList);
 
         //when
-        List<Survey> surveys = surveyRepository.findByPoster_id(poster.getPosterId());
+        List<Survey> surveys = surveyRepository.findByPosterPosterId(poster.getPosterId());
 
         //then
         assertThat(surveys.size()).isEqualTo(5);
@@ -84,7 +84,7 @@ class SurveyRepositoryTest {
         Poster savePoster = posterRepository.save(poster);
 
         //when
-        Optional<Poster> optPoster = posterRepository.findByTitle(savePoster.getPosterTitle());
+        Optional<Poster> optPoster = posterRepository.findByPosterTitle(savePoster.getPosterTitle());
         
         //then
         assertThat(optPoster.get().getPosterTitle()).isEqualTo(posterTitle);

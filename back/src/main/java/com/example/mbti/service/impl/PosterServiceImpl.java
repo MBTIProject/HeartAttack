@@ -26,7 +26,7 @@ public class PosterServiceImpl implements PosterService {
     @Override
     @Transactional
     public HashMap<String, Object> addPost(PosterRequestDto posterRequestDto) {
-        Optional<Poster> optPoster = posterRepository.findByTitle(posterRequestDto.getPosterTitle());
+        Optional<Poster> optPoster = posterRepository.findByPosterTitle(posterRequestDto.getPosterTitle());
         if(!optPoster.isEmpty()){
             throw new ApiRequestException("동일한 심리테스트 제목이 존재합니다.");
         }else {

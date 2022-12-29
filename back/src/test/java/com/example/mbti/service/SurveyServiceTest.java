@@ -110,7 +110,7 @@ class SurveyServiceTest {
 
 
         //stub
-        when(surveyRepository.findByPoster_id(poster.getPosterId())).thenReturn(surveyList);
+        when(surveyRepository.findByPosterPosterId(poster.getPosterId())).thenReturn(surveyList);
 
         //when
         HashMap<String, Object> surveyByPosterId = surveyService.findPost(poster.getPosterId());

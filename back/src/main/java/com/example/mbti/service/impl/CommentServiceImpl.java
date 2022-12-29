@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public HashMap<String, Object> findComment(Long posterId) {
-        List<CommentResponseDto> commentList = commentRepository.findByPosterId(posterId).stream()
+        List<CommentResponseDto> commentList = commentRepository.findByPosterPosterId(posterId).stream()
                 .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
         return makeResultMap(commentList);

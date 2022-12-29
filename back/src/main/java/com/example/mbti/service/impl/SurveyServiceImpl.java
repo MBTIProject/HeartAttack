@@ -30,10 +30,12 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     @Transactional
-    public int update(Long posterId,Long surveyId){
-        Optional<Survey> byPoster_idAndSurvey_id = surveyRepository.findByPoster_idAndSurvey_id(posterId, surveyId);
-        byPoster_idAndSurvey_id.get().updateSelectionCnt();
-        return byPoster_idAndSurvey_id.get().getChoiceViewCount();
+    public int update(Long surveyId){
+        Optional<Survey> optSurvey = Optional.ofNullable(surveyRepository.findById(surveyId).orElseThrow(() -> {
+            throw new ApiRequestException("존재하지 않는 심리테스트 선택지, 선택지결과입니다.");
+        }));
+        optSurvey.get().updateSelectionCnt();
+        return optSurvey.get().getChoiceViewCount();
     }
 
     @Override
@@ -47,7 +49,7 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public HashMap<String, Object> findPost(Long posterId) {
-        List<SurveyResponseDto> surveyList = surveyRepository.findByPoster_id(posterId).stream()
+        List<SurveyResponseDto> surveyList = surveyRepository.findByPosterPosterId(posterId).stream()
                 .map(SurveyResponseDto::new)
                 .collect(Collectors.toList());
         return makeResultMap(surveyList);

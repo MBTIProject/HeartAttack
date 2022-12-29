@@ -54,7 +54,7 @@ class PosterServiceTest {
 
         //stub
         when(posterRepository.save(any())).thenReturn(poster);
-        when(posterRepository.findByTitle(dto.getPosterTitle())).thenReturn(Optional.ofNullable(null));
+        when(posterRepository.findByPosterTitle(dto.getPosterTitle())).thenReturn(Optional.ofNullable(null));
 
         //when
         HashMap<String, Object> stringObjectHashMap = posterService.addPost(dto);

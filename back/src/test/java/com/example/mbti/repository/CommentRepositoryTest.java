@@ -42,7 +42,7 @@ class CommentRepositoryTest {
     void 댓글등록(){
         //given
         String comment = "댓글내용";
-        Optional<Poster> optPoster = posterRepository.findByTitle("심리테스트 유형 제목1");
+        Optional<Poster> optPoster = posterRepository.findByPosterTitle("심리테스트 유형 제목1");
 
         Comment commentEntity = Comment.builder()
                 .comment(comment)
@@ -61,7 +61,7 @@ class CommentRepositoryTest {
     void 심리테스트로댓글조회(){
         //given
         String comment = "댓글내용";
-        Optional<Poster> optPoster = posterRepository.findByTitle("심리테스트 유형 제목1");
+        Optional<Poster> optPoster = posterRepository.findByPosterTitle("심리테스트 유형 제목1");
 
         Comment commentEntity = Comment.builder()
                 .comment(comment)
@@ -70,7 +70,7 @@ class CommentRepositoryTest {
         Comment saveComment = commentRepository.save(commentEntity);
 
         //when
-        List<Comment> commentList = commentRepository.findByPosterId(optPoster.get().getPosterId());
+        List<Comment> commentList = commentRepository.findByPosterPosterId(optPoster.get().getPosterId());
 
         //then
         assertThat(commentList.size()).isEqualTo(1);

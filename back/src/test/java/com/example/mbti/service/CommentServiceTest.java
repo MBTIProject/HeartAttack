@@ -101,7 +101,7 @@ class CommentServiceTest {
 
 
         //stub
-        when(commentRepository.findByPosterId(poster.getPosterId())).thenReturn(commentList);
+        when(commentRepository.findByPosterPosterId(poster.getPosterId())).thenReturn(commentList);
 
         //when
         HashMap<String, Object> commentByPosterId = commentService.findComment(poster.getPosterId());

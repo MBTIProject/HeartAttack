@@ -89,7 +89,7 @@ class SurveyControllerTest {
         ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId, HttpMethod.POST, request, String.class);
 
         //then
-        List<Survey> posterList = surveyRepository.findByPoster_id(posterId);
+        List<Survey> posterList = surveyRepository.findByPosterPosterId(posterId);
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
         assertThat(posterList.get(1).getChoice()).isEqualTo(surveyRequestDto.getChoice());
         assertThat(posterList.get(1).getChoiceResult()).isEqualTo(surveyRequestDto.getChoiceResult());
@@ -106,7 +106,7 @@ class SurveyControllerTest {
         ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId+"/"+surveyId, HttpMethod.PUT, request, String.class);
 
         //then
-        Survey survey = surveyRepository.findByPoster_id(posterId).stream()
+        Survey survey = surveyRepository.findByPosterPosterId(posterId).stream()
                 .filter(s -> s.getSurveyId().equals(surveyId))
                 .findFirst().get();
 

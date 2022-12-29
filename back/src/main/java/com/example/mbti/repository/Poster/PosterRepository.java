@@ -10,8 +10,7 @@ import java.util.Optional;
 
 public interface PosterRepository extends JpaRepository<Poster, Long>, PosterRepositoryCustom {
 
-    @Query("SELECT p from Poster p where p.posterTitle =:poster_title")
-    Optional<Poster> findByTitle(@Param("poster_title") String posterTitle);
+    Optional<Poster> findByPosterTitle(String posterTitle);
 
     @Query("select distinct p from Poster p left join fetch p.surveyList")
     List<Poster> findAllPosterAndSurvey();

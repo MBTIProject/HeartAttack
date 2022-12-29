@@ -66,7 +66,7 @@ class PosterRepositoryTest {
         //given
 
         //when
-        Optional<Poster> optPoster = posterRepository.findByTitle("심리테스트 유형 제목");
+        Optional<Poster> optPoster = posterRepository.findByPosterTitle("심리테스트 유형 제목");
 
         //then
         assertThat(optPoster.get().getPosterTitle()).isEqualTo("심리테스트 유형 제목");

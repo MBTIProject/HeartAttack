@@ -28,9 +28,9 @@ public class SurveyController {
     }
 
     //심리테스트 결과 조회수
-    @PutMapping("/{posterId}/{surveyId}")
-    public ResponseEntity<Success> updatePoster(@PathVariable Long posterId, @PathVariable Long surveyId){
-        surveyService.update(posterId,surveyId);
+    @PutMapping("/{surveyId}")
+    public ResponseEntity<Success> updatePoster(@PathVariable Long surveyId){
+        surveyService.update(surveyId);
         return new ResponseEntity<>(new Success(true,"심리테스트 결과 조회수 증가 성공"),HttpStatus.OK);
     }
 

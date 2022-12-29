@@ -82,7 +82,7 @@ class CommentControllerTest {
         ResponseEntity<String> response = restTemplate.exchange("/"+posterId +"/comments", HttpMethod.POST, request, String.class);
 
         //then
-        List<Comment> commentList = commentRepository.findByPosterId(posterId);
+        List<Comment> commentList = commentRepository.findByPosterPosterId(posterId);
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
         assertThat(commentList.size()).isEqualTo(6);
         assertThat(commentList.get(5).getComment()).isEqualTo(commentRequestDto.getComment());

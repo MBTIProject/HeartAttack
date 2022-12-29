@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SurveyService {
 
-    int update(Long posterId,Long surveyId);
+    int update(Long surveyId);
     SurveyResponseDto addSurvey(SurveyRequestDto surveyRequestDto, Long posterId);
     HashMap<String, Object> findPost(Long posterId);
 }
