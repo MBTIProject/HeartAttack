@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,7 +18,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class SurveyRepositoryTest {
 
     @Autowired // DI
@@ -30,7 +32,7 @@ class SurveyRepositoryTest {
     void 심리테스트_유형_데이터_준비(){
         String posterTitle = "심리테스트 유형 제목1";
         String imgUrl = "심리테스트 유형 주소1";
-        String passage = "심리테스트 유형 지문";
+        String passage = "심리테스트 유형 지문1";
 
         Poster poster = Poster.builder()
                 .posterTitle(posterTitle)
@@ -71,9 +73,9 @@ class SurveyRepositoryTest {
     @Test
     void 제목으로조회(){
         //given
-        String posterTitle = "심리테스트 유형 제목1";
-        String imgUrl = "심리테스트 유형 주소1";
-        String passage = "심리테스트 유형 지문";
+        String posterTitle = "심리테스트 유형 제목2";
+        String imgUrl = "심리테스트 유형 주소2";
+        String passage = "심리테스트 유형 지문2";
         Poster poster = Poster.builder()
                 .posterTitle(posterTitle)
                 .imgUrl(imgUrl)
