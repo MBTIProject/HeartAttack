@@ -91,9 +91,8 @@ class SurveyControllerTest {
         //then
         List<Survey> posterList = surveyRepository.findByPoster_id(posterId);
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
-        assertThat(posterList.size()).isEqualTo(1);
-        assertThat(posterList.get(0).getChoice()).isEqualTo(surveyRequestDto.getChoice());
-        assertThat(posterList.get(0).getChoiceResult()).isEqualTo(surveyRequestDto.getChoiceResult());
+        assertThat(posterList.get(1).getChoice()).isEqualTo(surveyRequestDto.getChoice());
+        assertThat(posterList.get(1).getChoiceResult()).isEqualTo(surveyRequestDto.getChoiceResult());
     }
 
     @Test
