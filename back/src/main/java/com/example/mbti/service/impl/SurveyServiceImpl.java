@@ -1,5 +1,6 @@
 package com.example.mbti.service.impl;
 
+import com.example.mbti.advice.exception.ApiRequestException;
 import com.example.mbti.dto.request.SurveyRequestDto;
 import com.example.mbti.dto.response.SurveyResponseDto;
 import com.example.mbti.model.Poster;
@@ -38,13 +39,10 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     @Transactional
     public SurveyResponseDto addSurvey(SurveyRequestDto surveyRequestDto, Long posterId) {
-        Optional<Poster> findPosterId = posterRepository.findById(posterId);
-        Survey survey = Survey.builder()
-                .poster(findPosterId.get())
-                .choice(surveyRequestDto.getChoice())
-                .choiceResult(surveyRequestDto.getChoiceResult())
-                .build();
-        return new SurveyResponseDto(surveyRepository.save(survey));
+        Optional<Poster> optPoster = Optional.ofNullable(posterRepository.findById(posterId).orElseThrow(() -> {
+            throw new ApiRequestException("존재하지 않는 심리테스트 유형입니다.");
+        }));
+        return new SurveyResponseDto(surveyRepository.save(surveyRequestDto.toEntity(optPoster.get())));
     }
 
     @Override

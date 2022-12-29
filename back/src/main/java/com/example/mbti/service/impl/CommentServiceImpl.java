@@ -1,5 +1,6 @@
 package com.example.mbti.service.impl;
 
+import com.example.mbti.advice.exception.ApiRequestException;
 import com.example.mbti.dto.request.CommentRequestDto;
 import com.example.mbti.dto.response.CommentResponseDto;
 import com.example.mbti.model.Comment;
@@ -27,14 +28,12 @@ public class CommentServiceImpl implements CommentService {
 
     private final PosterRepository posterRepository;
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public String addComment(Long posterId, CommentRequestDto commentRequestDto) {
-        Optional<Poster> findPosterId = posterRepository.findById(posterId);
-        Comment comment = Comment.builder()
-                .comment(commentRequestDto.getComment())
-                .poster(findPosterId.get())
-                .build();
-        return commentRepository.save(comment).getComment();
+        Optional<Poster> optPoster = Optional.ofNullable(posterRepository.findById(posterId).orElseThrow(() -> {
+            throw new ApiRequestException("존재하지 않는 심리테스트 유형입니다.");
+        }));
+        return commentRepository.save(commentRequestDto.toEntity(optPoster.get())).getComment();
     }
 
     @Override
