@@ -6,8 +6,11 @@ import com.example.mbti.model.Survey;
 import com.example.mbti.repository.survey.SurveyRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -17,7 +20,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class PosterRepositoryTest {
 
     @Autowired
@@ -50,10 +54,14 @@ class PosterRepositoryTest {
                     .build();
             surveyList.add(survey);
         }
-        surveyRepository.saveAll(surveyList);
+        List<Survey> surveys = surveyRepository.saveAll(surveyList);
+        for (Survey survey : surveys) {
+            System.out.println("a = " +survey.getPoster().getPosterId());
+        }
     }
 
     @Test
+    @DisplayName("심리테스트제목으로조회")
     void 심리테스트제목으로조회() {
         //given
 
@@ -67,6 +75,7 @@ class PosterRepositoryTest {
     }
 
     @Test
+    @DisplayName("심리테스트_유형추가")
     void 심리테스트_유형추가(){
         //given
         String posterTitle = "심리테스트 유형 제목2";
@@ -89,13 +98,26 @@ class PosterRepositoryTest {
     }
 
     @Test
+    @DisplayName("심리테스트유형_전체조회")
     void 심리테스트유형_전체조회(){
+        //given
+        String posterTitle = "심리테스트 유형 제목2";
+        String passage = "지문2";
+        String imgUrl = "심리테스트 이미지주소2";
+
+        Poster poster = Poster.builder()
+                .posterTitle(posterTitle)
+                .imgUrl(imgUrl)
+                .passage(passage)
+                .build();
+        posterRepository.save(poster);
 
         //when
-        List<Poster> allPosterAndSurvey = posterRepository.findAllPosterAndSurvey();
+        List<Poster> allPosterAndSurvey = posterRepository.findAll();
 
         //then
-        assertThat(allPosterAndSurvey.size()).isEqualTo(1);
-        assertThat(allPosterAndSurvey.get(0).getSurveyList().size()).isEqualTo(5);
+        assertThat(allPosterAndSurvey.size()).isEqualTo(2);
+        assertThat(allPosterAndSurvey.get(0).getPosterTitle()).isEqualTo("심리테스트 유형 제목");
+        assertThat(allPosterAndSurvey.get(1).getPosterTitle()).isEqualTo("심리테스트 유형 제목2");
     }
 }
