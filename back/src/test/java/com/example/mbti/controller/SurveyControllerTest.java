@@ -103,7 +103,7 @@ class SurveyControllerTest {
 
         //when
         HttpEntity<String> request = new HttpEntity<>( headers);
-        ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId+"/"+surveyId, HttpMethod.PUT, request, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("/survey/" +surveyId, HttpMethod.PUT, request, String.class);
 
         //then
         Survey survey = surveyRepository.findByPosterPosterId(posterId).stream()
