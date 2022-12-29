@@ -41,12 +41,6 @@ class PosterServiceTest {
     @Test
     void 심리테스트_유형_추가() throws ParseException, JsonProcessingException {
         //given
-        Poster findTitle = Poster.builder()
-                .posterTitle(null)
-                .imgUrl(null)
-                .passage(null)
-                .build();
-
         PosterRequestDto dto = new PosterRequestDto();
         dto.setPosterTitle("심리테스트 유형3");
         dto.setImgUrl("심리테스트 유형 주소1");
@@ -60,7 +54,7 @@ class PosterServiceTest {
 
         //stub
         when(posterRepository.save(any())).thenReturn(poster);
-        when(posterRepository.findByTitle(dto.getPosterTitle())).thenReturn(Optional.ofNullable(findTitle));
+        when(posterRepository.findByTitle(dto.getPosterTitle())).thenReturn(Optional.ofNullable(null));
 
         //when
         HashMap<String, Object> stringObjectHashMap = posterService.addPost(dto);
