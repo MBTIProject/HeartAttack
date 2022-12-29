@@ -7,6 +7,12 @@ import com.example.mbti.model.Poster;
 import com.example.mbti.repository.CommentRepository;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.service.impl.CommentServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +40,8 @@ class CommentServiceTest {
 
     @Mock
     private PosterRepository posterRepository;
+
+    private static ObjectMapper objectMapper;
 
     @Test
     void 댓글등록() {
@@ -68,7 +77,7 @@ class CommentServiceTest {
     }
 
     @Test
-    void 댓글조회(){
+    void 댓글조회() throws JsonProcessingException, ParseException {
         //given
         String posterTitle = "심리테스트 유형 제목";
         String passage = "지문";
@@ -92,14 +101,26 @@ class CommentServiceTest {
 
 
         //stub
-        when(commentRepository.findByPosterId(1L)).thenReturn(commentList);
+        when(commentRepository.findByPosterId(poster.getPosterId())).thenReturn(commentList);
 
         //when
-        //List<CommentResponseDto> comments = commentService.findComment(1L);
+        HashMap<String, Object> commentByPosterId = commentService.findComment(poster.getPosterId());
 
         //then
-//        assertThat(comments.size()).isEqualTo(5);
-//        assertThat(comments.get(0).getComment()).isEqualTo("댓글0");
-//        assertThat(comments.get(4).getComment()).isEqualTo("댓글4");
+        Object dataObject = commentByPosterId.get("data");
+        objectMapper = new ObjectMapper();
+        String objectToString = objectMapper.writeValueAsString(dataObject);
+
+        //2. String JSOn으로 변환 Object -> JSONArray -> JSONObject
+        JSONParser jsonParser = new JSONParser();
+        Object obj = jsonParser.parse(objectToString);
+        JSONArray jsonArray = (JSONArray) obj;
+        JSONObject object = (JSONObject) jsonArray.get(0);
+
+        String responseComment = (String) object.get("comment");
+        Integer responsePosterId = (Integer) object.get("posterId");
+
+        assertThat(responseComment).isEqualTo("댓글0");
+        assertThat(responsePosterId).isEqualTo(1);
     }
 }

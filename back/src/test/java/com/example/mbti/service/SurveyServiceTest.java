@@ -125,7 +125,6 @@ class SurveyServiceTest {
         Object obj = jsonParser.parse(objectToString);
         JSONArray jsonArray = (JSONArray) obj;
         for (Object object : jsonArray) {
-            System.out.println("o1 = "+object);
             net.minidev.json.JSONObject o11 = (net.minidev.json.JSONObject) object;
             String responseChoice = (String) o11.get("choice");
             String responseChoiceResult = (String) o11.get("choiceResult");
