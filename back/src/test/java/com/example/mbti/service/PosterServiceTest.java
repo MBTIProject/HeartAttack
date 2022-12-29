@@ -5,6 +5,12 @@ import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.service.impl.PosterServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,11 +36,19 @@ class PosterServiceTest {
     @Mock
     private PosterRepository posterRepository;
 
+    private static ObjectMapper objectMapper;
+
     @Test
-    void 심리테스트_유형_추가() {
+    void 심리테스트_유형_추가() throws ParseException, JsonProcessingException {
         //given
+        Poster findTitle = Poster.builder()
+                .posterTitle(null)
+                .imgUrl(null)
+                .passage(null)
+                .build();
+
         PosterRequestDto dto = new PosterRequestDto();
-        dto.setPosterTitle("심리테스트 유형1");
+        dto.setPosterTitle("심리테스트 유형3");
         dto.setImgUrl("심리테스트 유형 주소1");
         dto.setPassage("지문1");
 
@@ -45,15 +60,28 @@ class PosterServiceTest {
 
         //stub
         when(posterRepository.save(any())).thenReturn(poster);
-        when(posterRepository.findByTitle(dto.getPosterTitle())).thenReturn(java.util.Optional.of(poster));
+        when(posterRepository.findByTitle(dto.getPosterTitle())).thenReturn(Optional.ofNullable(findTitle));
 
         //when
-        PosterResponseDto posterResponseDto = posterService.addPost(dto);
+        HashMap<String, Object> stringObjectHashMap = posterService.addPost(dto);
 
         //then
-        assertThat(posterResponseDto.getPosterTitle()).isEqualTo(dto.getPosterTitle());
-        assertThat(posterResponseDto.getImgUrl()).isEqualTo(dto.getImgUrl());
-        assertThat(posterResponseDto.getPassage()).isEqualTo(dto.getPassage());
+        Object dataObject = stringObjectHashMap.get("data");
+        objectMapper = new ObjectMapper();
+        String objectToString = objectMapper.writeValueAsString(dataObject);
+
+        //2. String JSOn으로 변환 Object -> JSONArray -> JSONObject
+        JSONParser jsonParser = new JSONParser();
+        Object obj = jsonParser.parse(objectToString);
+        JSONObject jsonObject = (JSONObject) obj;
+
+        String responsePosterTitle = (String) jsonObject.get("posterTitle");
+        String responseImgUrl = (String) jsonObject.get("imgUrl");
+        String responsePassage = (String) jsonObject.get("passage");
+
+        assertThat(responsePosterTitle).isEqualTo(dto.getPosterTitle());
+        assertThat(responseImgUrl).isEqualTo(dto.getImgUrl());
+        assertThat(responsePassage).isEqualTo(dto.getPassage());
     }
 
     @Test
