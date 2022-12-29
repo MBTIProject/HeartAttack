@@ -26,15 +26,17 @@ public class PosterServiceImpl implements PosterService {
     @Override
     @Transactional(readOnly = false)
     public HashMap<String, Object> addPost(PosterRequestDto posterRequestDto) {
-        Optional.ofNullable(posterRepository.findByTitle(posterRequestDto.getPosterTitle()).orElseThrow(() -> {
+        Optional<Poster> optPoster = posterRepository.findByTitle(posterRequestDto.getPosterTitle());
+        if(!optPoster.isEmpty()){
             throw new ApiRequestException("동일한 심리테스트 제목이 존재합니다.");
-        }));
+        }else {
             Poster poster = Poster.builder()
                     .posterTitle(posterRequestDto.getPosterTitle())
                     .imgUrl(posterRequestDto.getImgUrl())
                     .passage(posterRequestDto.getPassage())
                     .build();
             return makeResultMap(new PosterResponseDto(posterRepository.save(poster)));
+        }
     }
 
     @Override
