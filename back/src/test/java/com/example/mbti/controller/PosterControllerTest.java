@@ -66,12 +66,12 @@ class PosterControllerTest {
         //when
         HttpEntity<String> request = new HttpEntity<>(body, headers);
         ResponseEntity<String> response = restTemplate.exchange("/posts", HttpMethod.POST, request, String.class);
-
+        System.out.println("response = " +response);
         //then
         DocumentContext dc = JsonPath.parse(response.getBody());
-        String posterTitle = dc.read("$.data.posterTitle");
-        String imgUrl = dc.read("$.data.imgUrl");
-        String passage = dc.read("$.data.passage");
+        String posterTitle = dc.read("$.result.data.posterTitle");
+        String imgUrl = dc.read("$.result.data.imgUrl");
+        String passage = dc.read("$.result.data.passage");
 
         assertThat(posterTitle).isEqualTo(posterRequestDto.getPosterTitle());
         assertThat(imgUrl).isEqualTo(posterRequestDto.getImgUrl());
