@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,10 @@ public class PosterResponseDto {
                 .map(SurveyResponseDto::new)
                 .collect(Collectors.toList());
         this.passage = poster.getPassage();
+    }
+
+    public static class PosterList{
+        private List<PosterResponseDto> posterResponseDtoList = new ArrayList<>();
     }
 
     public static PosterResponseDto of(final List<Survey> surveyList, final Poster poster){

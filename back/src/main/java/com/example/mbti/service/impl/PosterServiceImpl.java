@@ -10,9 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.mbti.advice.ResultInfo.makeResultMap;
 
 @RequiredArgsConstructor
 @Service
@@ -22,20 +25,16 @@ public class PosterServiceImpl implements PosterService {
 
     @Override
     @Transactional(readOnly = false)
-    public PosterResponseDto addPost(PosterRequestDto posterRequestDto) {
-
-        Optional<Poster> findPosterTitle = posterRepository.findByTitle(posterRequestDto.getPosterTitle());
-        if(findPosterTitle.isEmpty()) {
+    public HashMap<String, Object> addPost(PosterRequestDto posterRequestDto) {
+        Optional.ofNullable(posterRepository.findByTitle(posterRequestDto.getPosterTitle()).orElseThrow(() -> {
+            throw new ApiRequestException("동일한 심리테스트 제목이 존재합니다.");
+        }));
             Poster poster = Poster.builder()
                     .posterTitle(posterRequestDto.getPosterTitle())
                     .imgUrl(posterRequestDto.getImgUrl())
                     .passage(posterRequestDto.getPassage())
                     .build();
-            return new PosterResponseDto(posterRepository.save(poster));
-        }
-        else {
-            throw new ApiRequestException("동일한 심리테스트 제목이 존재합니다.");
-        }
+            return makeResultMap(new PosterResponseDto(posterRepository.save(poster)));
     }
 
     @Override

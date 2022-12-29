@@ -1,6 +1,7 @@
 package com.example.mbti.controller;
 
 import com.example.mbti.advice.GetAllPost;
+import com.example.mbti.advice.ResultInfo;
 import com.example.mbti.advice.Success;
 import com.example.mbti.dto.request.PosterRequestDto;
 import com.example.mbti.dto.response.PosterResponseDto;
@@ -19,9 +20,8 @@ public class PosterController {
 
     //심리테스트 유형 추가
     @PostMapping("")
-    public ResponseEntity<Success> createPost(@RequestBody PosterRequestDto posterRequestDto){
-        PosterResponseDto posterResponseDto = posterService.addPost(posterRequestDto);
-        return new ResponseEntity<>(new Success(true,"심리테스트 유형 등록 성공!", posterResponseDto), HttpStatus.OK);
+    public ResultInfo createPost(@RequestBody PosterRequestDto posterRequestDto){
+        return new ResultInfo(ResultInfo.Code.SUCCESS,"심리테스트 유형 등록 성공!", posterService.addPost(posterRequestDto));
     }
 
     //심리테스트 유형 전체조회
