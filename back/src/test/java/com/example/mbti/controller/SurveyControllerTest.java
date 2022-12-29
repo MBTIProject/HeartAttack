@@ -1,8 +1,6 @@
 package com.example.mbti.controller;
 
-import com.example.mbti.dto.request.CommentRequestDto;
 import com.example.mbti.dto.request.SurveyRequestDto;
-import com.example.mbti.model.Comment;
 import com.example.mbti.model.Poster;
 import com.example.mbti.model.Survey;
 import com.example.mbti.repository.Poster.PosterRepository;
@@ -11,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,10 +19,8 @@ import org.springframework.http.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SurveyControllerTest {

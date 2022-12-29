@@ -1,7 +1,6 @@
 package com.example.mbti.service;
 
 import com.example.mbti.dto.request.CommentRequestDto;
-import com.example.mbti.dto.response.CommentResponseDto;
 import com.example.mbti.model.Comment;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.CommentRepository;
@@ -13,7 +12,6 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

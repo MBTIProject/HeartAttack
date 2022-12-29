@@ -7,7 +7,6 @@ import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.service.impl.PosterServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
