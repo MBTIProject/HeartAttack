@@ -30,12 +30,13 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     @Transactional
-    public int update(Long surveyId){
+    public
+    SurveyResponseDto update(Long surveyId){
         Optional<Survey> optSurvey = Optional.ofNullable(surveyRepository.findById(surveyId).orElseThrow(() -> {
             throw new ApiRequestException("존재하지 않는 심리테스트 선택지, 선택지결과입니다.");
         }));
         optSurvey.get().updateSelectionCnt();
-        return optSurvey.get().getChoiceViewCount();
+        return new SurveyResponseDto(optSurvey.get());
     }
 
     @Override
@@ -48,10 +49,10 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public HashMap<String, Object> findPost(Long posterId) {
+    public SurveyResponseDto.SurveyList findPost(Long posterId) {
         List<SurveyResponseDto> surveyList = surveyRepository.findByPosterPosterId(posterId).stream()
                 .map(SurveyResponseDto::new)
                 .collect(Collectors.toList());
-        return makeResultMap(surveyList);
+        return new SurveyResponseDto.SurveyList(surveyList);
     }
 }

@@ -1,12 +1,9 @@
 package com.example.mbti.controller;
 
-import com.example.mbti.advice.GetAllComment;
-import com.example.mbti.advice.Success;
+import com.example.mbti.advice.ResultInfo;
 import com.example.mbti.dto.request.CommentRequestDto;
 import com.example.mbti.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,14 +15,14 @@ public class CommentController {
 
     //심리테스트 유형별 댓글 추가
     @PostMapping("/comments")
-    public ResponseEntity<Success> createComment(@RequestBody CommentRequestDto commentRequestDto, @PathVariable Long posterId) {
-        commentService.addComment(posterId, commentRequestDto);
-        return new ResponseEntity<>(new Success(true, "댓글 등록 성공!"), HttpStatus.OK);
+    public ResultInfo createComment(@RequestBody CommentRequestDto commentRequestDto,
+                                    @PathVariable Long posterId) {
+        return new ResultInfo(ResultInfo.Code.CREATE, "댓글 등록 성공!", commentService.addComment(posterId, commentRequestDto));
     }
 
     //심리테스트 유형별 댓글 조회
     @GetMapping("/comments")
-    public ResponseEntity<Success> selectComment(@PathVariable Long posterId) {
-        return new ResponseEntity<>(new Success(true,"댓글 조회 성공!", commentService.findComment(posterId)),HttpStatus.OK);
+    public ResultInfo selectComment(@PathVariable Long posterId) {
+        return new ResultInfo(ResultInfo.Code.SUCCESS,"댓글 조회 성공!", commentService.findComment(posterId));
     }
 }

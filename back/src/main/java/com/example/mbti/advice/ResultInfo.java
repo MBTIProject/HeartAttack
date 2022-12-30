@@ -13,14 +13,14 @@ public class ResultInfo {
 
     private int code;
 
-    @JsonIgnore
     private String message;
-    private Map<String, Object> result;
+    private Object data;
 
 
     public enum Code {
         SUCCESS(200),
         FAIL(100),
+        CREATE(202),
         ERROR(300);
 
         int value;
@@ -76,10 +76,10 @@ public class ResultInfo {
         return resultInfo;
     }
 
-    public ResultInfo(Code code, String message, Map<String, Object> result) {
+    public ResultInfo(Code code, String message, Object data) {
         this.code = code.getValue();
         this.message = message;
-        this.result = result;
+        this.data = data;
     }
 
     public static ResultInfo success(String message, Map<String, Object> result) {

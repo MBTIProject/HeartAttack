@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface CommentService {
-    String addComment(Long posterId, CommentRequestDto commentRequestDto);
-    HashMap<String, Object> findComment(Long posterId);
+    CommentResponseDto addComment(Long posterId, CommentRequestDto commentRequestDto);
+    CommentResponseDto.CommentList findComment(Long posterId);
 
 }

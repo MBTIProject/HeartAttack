@@ -29,18 +29,18 @@ public class CommentServiceImpl implements CommentService {
     private final PosterRepository posterRepository;
     @Override
     @Transactional
-    public String addComment(Long posterId, CommentRequestDto commentRequestDto) {
+    public CommentResponseDto addComment(Long posterId, CommentRequestDto commentRequestDto) {
         Optional<Poster> optPoster = Optional.ofNullable(posterRepository.findById(posterId).orElseThrow(() -> {
             throw new ApiRequestException("존재하지 않는 심리테스트 유형입니다.");
         }));
-        return commentRepository.save(commentRequestDto.toEntity(optPoster.get())).getComment();
+        return new CommentResponseDto(commentRepository.save(commentRequestDto.toEntity(optPoster.get())));
     }
 
     @Override
-    public HashMap<String, Object> findComment(Long posterId) {
+    public CommentResponseDto.CommentList findComment(Long posterId) {
         List<CommentResponseDto> commentList = commentRepository.findByPosterPosterId(posterId).stream()
                 .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
-        return makeResultMap(commentList);
+        return new CommentResponseDto.CommentList(commentList);
     }
 }

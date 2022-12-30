@@ -19,7 +19,7 @@ public class PosterResponseDto {
     private String posterTitle;
     private String imgUrl;
     private int posterViewCount;
-    private LocalDateTime date;
+    private LocalDateTime createDate;
     private String passage;
     private List<SurveyResponseDto> surveyResponseDto;
     
@@ -36,15 +36,20 @@ public class PosterResponseDto {
         this.posterTitle = poster.getPosterTitle();
         this.imgUrl = poster.getImgUrl();
         this.posterViewCount = poster.getPosterViewCount();
-        this.date = poster.getModifiedAt();
+        this.createDate = poster.getModifiedAt();
         this.surveyResponseDto = poster.getSurveyList().stream()
                 .map(SurveyResponseDto::new)
                 .collect(Collectors.toList());
         this.passage = poster.getPassage();
     }
 
+    @Getter
     public static class PosterList{
-        private List<PosterResponseDto> posterResponseDtoList = new ArrayList<>();
+        private List<PosterResponseDto> posterList = new ArrayList<>();
+
+        public PosterList(List<PosterResponseDto> posterList) {
+            this.posterList = posterList;
+        }
     }
 
     public static PosterResponseDto of(final List<Survey> surveyList, final Poster poster){

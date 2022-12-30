@@ -1,14 +1,9 @@
 package com.example.mbti.controller;
 
-import com.example.mbti.advice.GetAllPost;
 import com.example.mbti.advice.ResultInfo;
-import com.example.mbti.advice.Success;
 import com.example.mbti.dto.request.PosterRequestDto;
-import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.service.PosterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,14 +21,14 @@ public class PosterController {
 
     //심리테스트 유형 전체조회
     @GetMapping("")
-    public ResponseEntity<GetAllPost> selectPost() {
-        return new ResponseEntity<>(new GetAllPost(true,"심리테스트 유형 전제조회 완료", posterService.findPost()),HttpStatus.OK);
+    public ResultInfo selectPost() {
+        return new ResultInfo(ResultInfo.Code.SUCCESS,"심리테스트 유형 전제조회 완료", posterService.findPost());
     }
 
     //심리테스트 유형 조회수 증가
     @PutMapping("/{posterId}")
-    public ResponseEntity<Success> PostViewCnt(@PathVariable Long posterId){
+    public ResultInfo PostViewCnt(@PathVariable Long posterId){
         posterService.modifyPostCnt(posterId);
-        return new ResponseEntity<>(new Success(true,"심리테스트 조회수 증가 성공!"),HttpStatus.OK);
+        return new ResultInfo(ResultInfo.Code.SUCCESS,"심리테스트 조회수 증가 성공!");
     }
 }

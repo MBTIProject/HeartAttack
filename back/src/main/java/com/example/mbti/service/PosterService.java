@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PosterService {
-    HashMap<String, Object> addPost(PosterRequestDto posterRequestDto);
-    List<PosterResponseDto> findPost();
+    PosterResponseDto addPost(PosterRequestDto posterRequestDto);
+    PosterResponseDto.PosterList findPost();
     Optional<Poster> modifyPostCnt(Long posterId);
 
 }

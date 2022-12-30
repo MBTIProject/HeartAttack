@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +22,14 @@ public class SurveyResponseDto {
         this.choice = survey.getChoice();
         this.choiceResult = survey.getChoiceResult();
         this.choiceViewCount = survey.getChoiceViewCount();
+    }
+
+    @Getter
+    public static class SurveyList{
+        private List<SurveyResponseDto> surveyList = new ArrayList<>();
+
+        public SurveyList(List<SurveyResponseDto> surveyList) {
+            this.surveyList = surveyList;
+        }
     }
 }

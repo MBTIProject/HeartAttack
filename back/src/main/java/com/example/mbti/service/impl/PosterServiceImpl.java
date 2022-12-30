@@ -25,20 +25,21 @@ public class PosterServiceImpl implements PosterService {
 
     @Override
     @Transactional
-    public HashMap<String, Object> addPost(PosterRequestDto posterRequestDto) {
+    public PosterResponseDto addPost(PosterRequestDto posterRequestDto) {
         Optional<Poster> optPoster = posterRepository.findByPosterTitle(posterRequestDto.getPosterTitle());
         if(!optPoster.isEmpty()){
             throw new ApiRequestException("동일한 심리테스트 제목이 존재합니다.");
         }else {
-            return makeResultMap(new PosterResponseDto(posterRepository.save(posterRequestDto.toEntity())));
+            return new PosterResponseDto(posterRepository.save(posterRequestDto.toEntity()));
         }
     }
 
     @Override
-    public List<PosterResponseDto> findPost() {
-        return posterRepository.findAllPosterAndSurvey().stream()
+    public PosterResponseDto.PosterList findPost() {
+        List<PosterResponseDto> posterList = posterRepository.findAllPosterAndSurvey().stream()
                 .map(PosterResponseDto::new)
                 .collect(Collectors.toList());
+        return new PosterResponseDto.PosterList(posterList);
     }
 
     @Override
