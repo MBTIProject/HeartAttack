@@ -7,13 +7,6 @@ import com.example.mbti.model.Survey;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.repository.survey.SurveyRepository;
 import com.example.mbti.service.impl.SurveyServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
-import org.assertj.core.api.Assertions;
-import net.minidev.json.JSONArray;
-import org.json.JSONException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 

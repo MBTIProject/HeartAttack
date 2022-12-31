@@ -7,12 +7,6 @@ import com.example.mbti.model.Poster;
 import com.example.mbti.repository.CommentRepository;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.service.impl.CommentServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +33,6 @@ class CommentServiceTest {
 
     @Mock
     private PosterRepository posterRepository;
-
-    private static ObjectMapper objectMapper;
 
     @Test
     void 댓글등록() {
@@ -71,7 +62,6 @@ class CommentServiceTest {
 
         //when
         CommentResponseDto commentResponseDto = commentService.addComment(poster.getPosterId(), dto);
-        // String addComment = commentService.addComment(poster.getPosterId(), dto);
 
         //then
         assertThat(commentResponseDto.getPosterId()).isEqualTo(1);

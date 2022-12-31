@@ -5,11 +5,6 @@ import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.example.mbti.service.impl.PosterServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,9 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +28,6 @@ class PosterServiceTest {
 
     @Mock
     private PosterRepository posterRepository;
-
-    private static ObjectMapper objectMapper;
 
     @Test
     @DisplayName("심리테스트_유형_추가")
