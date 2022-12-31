@@ -1,6 +1,7 @@
 package com.example.mbti.controller;
 
 import com.example.mbti.dto.request.PosterRequestDto;
+import com.example.mbti.dto.response.PosterResponseDto;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.Poster.PosterRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,6 +10,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,6 +56,7 @@ class PosterControllerTest {
 
 
     @Test
+    @DisplayName("심리테스트_유형_추가")
     void 심리테스트_유형_추가() throws JsonProcessingException {
         //given
         PosterRequestDto posterRequestDto = new PosterRequestDto();
@@ -66,20 +69,23 @@ class PosterControllerTest {
         //when
         HttpEntity<String> request = new HttpEntity<>(body, headers);
         ResponseEntity<String> response = restTemplate.exchange("/posts", HttpMethod.POST, request, String.class);
-        System.out.println("response = " +response);
+
         //then
         DocumentContext dc = JsonPath.parse(response.getBody());
-        String posterTitle = dc.read("$.result.data.posterTitle");
-        String imgUrl = dc.read("$.result.data.imgUrl");
-        String passage = dc.read("$.result.data.passage");
+
+        String posterTitle = dc.read("$.data.posterTitle");
+        String imgUrl = dc.read("$.data.imgUrl");
+        String passage = dc.read("$.data.passage");
+        Integer statusCode = dc.read("$.code");
 
         assertThat(posterTitle).isEqualTo(posterRequestDto.getPosterTitle());
         assertThat(imgUrl).isEqualTo(posterRequestDto.getImgUrl());
         assertThat(passage).isEqualTo(posterRequestDto.getPassage());
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        assertThat(statusCode).isEqualTo(202);
     }
 
     @Test
+    @DisplayName("심리테스트_유형_전체조회")
     void 심리테스트_유형_전체조회(){
         //given
 
@@ -89,31 +95,24 @@ class PosterControllerTest {
 
         //then
         DocumentContext dc = JsonPath.parse(response.getBody());
-        Object dataObject = dc.read("$.data");
 
-        DocumentContext poster0 = JsonPath.parse(((List<?>) dataObject).get(0));
-        DocumentContext poster1 = JsonPath.parse(((List<?>) dataObject).get(1));
-        DocumentContext poster2 = JsonPath.parse(((List<?>) dataObject).get(2));
-        DocumentContext poster3 = JsonPath.parse(((List<?>) dataObject).get(3));
-        DocumentContext poster4 = JsonPath.parse(((List<?>) dataObject).get(4));
+        Integer posterId = dc.read("$.data.posterList[0].posterId");
+        String posterTitle = dc.read("$.data.posterList[0].posterTitle");
+        String imgUrl = dc.read("$.data.posterList[0].imgUrl");
+        String passage = dc.read("$.data.posterList[0].passage");
+        List<PosterResponseDto> posterResponseDtoList = dc.read("$.data.posterList");
+        Integer statusCode = dc.read("$.code");
 
-        Object posterId0 = poster0.read("$.posterId");
-        Object posterTitle1 = poster1.read("$.posterTitle");
-        Object imgUrl2 = poster2.read("$.imgUrl");
-        Object posterViewCount3 = poster3.read("$.posterViewCount");
-        Object passage4 = poster4.read("$.passage");
-
-        int objectSize = ((List<?>) dataObject).size();
-
-        assertThat(posterId0).isEqualTo(1);
-        assertThat(posterTitle1).isEqualTo("심리테스트 유형 제목1");
-        assertThat(imgUrl2).isEqualTo("심리테스트 유형 이미지2");
-        assertThat(posterViewCount3).isEqualTo(0);
-        assertThat(passage4).isEqualTo("심리테스트 유형 지문4");
-        assertThat(objectSize).isEqualTo(5);
+        assertThat(posterResponseDtoList.size()).isEqualTo(11);
+        assertThat(posterId).isEqualTo(1);
+        assertThat(posterTitle).isEqualTo("심리테스트 유형 제목0");
+        assertThat(imgUrl).isEqualTo("심리테스트 유형 이미지0");
+        assertThat(passage).isEqualTo("심리테스트 유형 지문0");
+        assertThat(statusCode).isEqualTo(200);
     }
 
     @Test
+    @DisplayName("심리테스트_조회수")
     void 심리테스트_조회수(){
         //given
 
@@ -122,8 +121,11 @@ class PosterControllerTest {
         ResponseEntity<String> response = restTemplate.exchange("/posts/1", HttpMethod.PUT, request, String.class);
 
         //then
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer statusCode = dc.read("$.code");
+
         Poster poster = posterRepository.findById(1L).get();
         assertThat(poster.getPosterViewCount()).isEqualTo(1);
-
+        assertThat(statusCode).isEqualTo(200);
     }
 }

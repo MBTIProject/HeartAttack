@@ -4,6 +4,7 @@ import com.example.mbti.model.Comment;
 import com.example.mbti.model.Poster;
 import com.example.mbti.repository.Poster.PosterRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -38,6 +39,7 @@ class CommentRepositoryTest {
     }
 
     @Test
+    @DisplayName("댓글등록")
     void 댓글등록(){
         //given
         String comment = "댓글내용";
@@ -57,6 +59,7 @@ class CommentRepositoryTest {
     }
 
     @Test
+    @DisplayName("심리테스트로댓글조회")
     void 심리테스트로댓글조회(){
         //given
         String comment = "댓글내용";

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,7 +39,8 @@ class PosterServiceTest {
     private static ObjectMapper objectMapper;
 
     @Test
-    void 심리테스트_유형_추가() throws ParseException, JsonProcessingException {
+    @DisplayName("심리테스트_유형_추가")
+    void 심리테스트_유형_추가() {
         //given
         PosterRequestDto dto = new PosterRequestDto();
         dto.setPosterTitle("심리테스트 유형3");
@@ -56,28 +58,16 @@ class PosterServiceTest {
         when(posterRepository.findByPosterTitle(dto.getPosterTitle())).thenReturn(Optional.ofNullable(null));
 
         //when
-        HashMap<String, Object> stringObjectHashMap = posterService.addPost(dto);
+        PosterResponseDto posterResponseDto = posterService.addPost(dto);
 
         //then
-        Object dataObject = stringObjectHashMap.get("data");
-        objectMapper = new ObjectMapper();
-        String objectToString = objectMapper.writeValueAsString(dataObject);
-
-        //2. String JSOn으로 변환 Object -> JSONArray -> JSONObject
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(objectToString);
-        JSONObject jsonObject = (JSONObject) obj;
-
-        String responsePosterTitle = (String) jsonObject.get("posterTitle");
-        String responseImgUrl = (String) jsonObject.get("imgUrl");
-        String responsePassage = (String) jsonObject.get("passage");
-
-        assertThat(responsePosterTitle).isEqualTo(dto.getPosterTitle());
-        assertThat(responseImgUrl).isEqualTo(dto.getImgUrl());
-        assertThat(responsePassage).isEqualTo(dto.getPassage());
+        assertThat(posterResponseDto.getPosterTitle()).isEqualTo(dto.getPosterTitle());
+        assertThat(posterResponseDto.getImgUrl()).isEqualTo(dto.getImgUrl());
+        assertThat(posterResponseDto.getPassage()).isEqualTo(dto.getPassage());
     }
 
     @Test
+    @DisplayName("심리테스트_유형_조회")
     void 심리테스트_유형_조회(){
         //given
         List<Poster> posterList = new ArrayList<>();
@@ -93,17 +83,17 @@ class PosterServiceTest {
         when(posterRepository.findAllPosterAndSurvey()).thenReturn(posterList);
 
         //when
-        List<PosterResponseDto> postList = posterService.findPost();
+        PosterResponseDto.PosterList poster = posterService.findPost();
 
         //then
-        assertThat(postList.size()).isEqualTo(5);
-        assertThat(postList.get(1).getPosterTitle()).isEqualTo("심리테스트 유형1");
-        assertThat(postList.get(2).getImgUrl()).isEqualTo("심리테스트 유형 이미지 주소2");
-        assertThat(postList.get(3).getPassage()).isEqualTo("심리테스트 지문3");
-        assertThat(postList).isNotEmpty();
+        assertThat(poster.getPosterList().get(0).getPosterTitle()).isEqualTo("심리테스트 유형0");
+        assertThat(poster.getPosterList().get(1).getPassage()).isEqualTo("심리테스트 지문1");
+        assertThat(poster.getPosterList().get(2).getImgUrl()).isEqualTo("심리테스트 유형 이미지 주소2");
+        assertThat(poster.getPosterList().size()).isEqualTo(5);
     }
 
     @Test
+    @DisplayName("심리테스트_유형_조회수")
     void 심리테스트_유형_조회수(){
         //given
         Long posterId = 1L;

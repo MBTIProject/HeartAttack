@@ -11,6 +11,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,6 +67,7 @@ class CommentControllerTest {
     }
 
     @Test
+    @DisplayName("심리테스트_유형별_댓글_등록")
     void 심리테스트_유형별_댓글_등록() throws JsonProcessingException {
         //given
         Long posterId = 1L;
@@ -81,12 +83,16 @@ class CommentControllerTest {
 
         //then
         List<Comment> commentList = commentRepository.findByPosterPosterId(posterId);
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer statusCode = dc.read("$.code");
+
+        assertThat(statusCode).isEqualTo(202);
         assertThat(commentList.size()).isEqualTo(6);
         assertThat(commentList.get(5).getComment()).isEqualTo(commentRequestDto.getComment());
     }
 
     @Test
+    @DisplayName("심리테스트_유형별_댓글_조회")
     void 심리테스트_유형별_댓글_조회(){
         //given
         Long posterId = 1L;
@@ -95,16 +101,16 @@ class CommentControllerTest {
         HttpEntity<String> request = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange("/"+posterId +"/comments", HttpMethod.GET, request, String.class);
 
-        System.out.println("response = " + response);
-
         //then
         DocumentContext dc = JsonPath.parse(response.getBody());
-        Integer Id = dc.read("$.data.data[0].posterId");
-        String comment = dc.read("$.data.data[1].comment");
-        String msg = dc.read("$.msg");
+        Integer Id = dc.read("$.data.commentList[0].posterId");
+        String comment = dc.read("$.data.commentList[1].comment");
+        String msg = dc.read("$.message");
+        Integer statusCode = dc.read("$.code");
+
         assertThat(Id).isEqualTo(Integer.valueOf(Math.toIntExact(posterId)));
         assertThat(msg).isEqualTo("댓글 조회 성공!");
         assertThat(comment).isEqualTo("댓글내용1");
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        assertThat(statusCode).isEqualTo(200);
     }
 }

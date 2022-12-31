@@ -14,6 +14,7 @@ import net.minidev.json.parser.ParseException;
 import org.assertj.core.api.Assertions;
 import net.minidev.json.JSONArray;
 import org.json.JSONException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,9 +42,8 @@ class SurveyServiceTest {
     @Mock
     private PosterRepository posterRepository;
 
-    private static ObjectMapper objectMapper;
-
     @Test
+    @DisplayName("심리테스트_지문_등록")
     void 심리테스트_지문_등록(){
         //given
         String posterTitle = "심리테스트 유형 제목";
@@ -81,7 +81,8 @@ class SurveyServiceTest {
     }
 
     @Test
-    void 심리테스트_선택지_결과_조회() throws JsonProcessingException, ParseException, JSONException {
+    @DisplayName("심리테스트_지문_등록")
+    void 심리테스트_선택지_결과_조회() {
         //given
         String posterTitle = "심리테스트 유형 제목";
         String passage = "지문";
@@ -110,25 +111,12 @@ class SurveyServiceTest {
         when(surveyRepository.findByPosterPosterId(poster.getPosterId())).thenReturn(surveyList);
 
         //when
-        HashMap<String, Object> surveyByPosterId = surveyService.findPost(poster.getPosterId());
+        SurveyResponseDto.SurveyList SurveyResponseDto = surveyService.findPost(poster.getPosterId());
 
         //then
-        Object dataObject = surveyByPosterId.get("data");
-        objectMapper = new ObjectMapper();
-        String objectToString = objectMapper.writeValueAsString(dataObject);
-
-        //2. String JSOn으로 변환 Object -> JSONArray -> JSONObject
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(objectToString);
-        JSONArray jsonArray = (JSONArray) obj;
-        for (Object object : jsonArray) {
-            net.minidev.json.JSONObject o11 = (net.minidev.json.JSONObject) object;
-            String responseChoice = (String) o11.get("choice");
-            String responseChoiceResult = (String) o11.get("choiceResult");
-
-            Assertions.assertThat(responseChoice).isEqualTo(choice);
-            Assertions.assertThat(responseChoiceResult).isEqualTo(choiceResult);
-        }
+        assertThat(SurveyResponseDto.getSurveyList().size()).isEqualTo(1);
+        assertThat(SurveyResponseDto.getSurveyList().get(0).getChoice()).isEqualTo("선택지");
+        assertThat(SurveyResponseDto.getSurveyList().get(0).getChoiceResult()).isEqualTo("결과");
     }
 
 }

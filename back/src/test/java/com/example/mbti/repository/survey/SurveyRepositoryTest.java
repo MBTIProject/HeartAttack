@@ -4,6 +4,7 @@ import com.example.mbti.model.Poster;
 import com.example.mbti.model.Survey;
 import com.example.mbti.repository.Poster.PosterRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -40,6 +41,7 @@ class SurveyRepositoryTest {
     }
 
     @Test
+    @DisplayName("심리테스트_지문_등록")
     void 심리테스트_지문_등록(){
         //given
         String choice = "선택지";
@@ -68,6 +70,7 @@ class SurveyRepositoryTest {
     }
 
     @Test
+    @DisplayName("제목으로조회")
     void 제목으로조회(){
         //given
         String posterTitle = "심리테스트 유형 제목2";

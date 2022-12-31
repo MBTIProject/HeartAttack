@@ -16,7 +16,7 @@ public class PosterController {
     //심리테스트 유형 추가
     @PostMapping("")
     public ResultInfo createPost(@RequestBody PosterRequestDto posterRequestDto){
-        return new ResultInfo(ResultInfo.Code.SUCCESS,"심리테스트 유형 등록 성공!", posterService.addPost(posterRequestDto));
+        return new ResultInfo(ResultInfo.Code.CREATE,"심리테스트 유형 등록 성공!", posterService.addPost(posterRequestDto));
     }
 
     //심리테스트 유형 전체조회

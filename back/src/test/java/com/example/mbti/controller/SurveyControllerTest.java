@@ -11,6 +11,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -69,6 +70,7 @@ class SurveyControllerTest {
     }
 
     @Test
+    @DisplayName("심리테스트_지문_등록_등록")
     void 심리테스트_지문_등록_등록() throws JsonProcessingException {
         //given
         Long posterId = 1L;
@@ -85,12 +87,16 @@ class SurveyControllerTest {
 
         //then
         List<Survey> posterList = surveyRepository.findByPosterPosterId(posterId);
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer statusCode = dc.read("$.code");
+
+        assertThat(statusCode).isEqualTo(202);
         assertThat(posterList.get(1).getChoice()).isEqualTo(surveyRequestDto.getChoice());
         assertThat(posterList.get(1).getChoiceResult()).isEqualTo(surveyRequestDto.getChoiceResult());
     }
 
     @Test
+    @DisplayName("심리테스트_결과_조회수")
     void 심리테스트_결과_조회수(){
         //given
         Long posterId = 1L;
@@ -101,33 +107,36 @@ class SurveyControllerTest {
         ResponseEntity<String> response = restTemplate.exchange("/survey/" +surveyId, HttpMethod.PUT, request, String.class);
 
         //then
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer statusCode = dc.read("$.code");
         Survey survey = surveyRepository.findByPosterPosterId(posterId).stream()
                 .filter(s -> s.getSurveyId().equals(surveyId))
                 .findFirst().get();
 
         assertThat(survey.getChoiceViewCount()).isEqualTo(1);
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        assertThat(statusCode).isEqualTo(200);
     }
 
     @Test
+    @DisplayName("심리테스트_선택지_결과_조회")
     void 심리테스트_선택지_결과_조회(){
         //given
         Long posterId = 1L;
 
-        //then
+        //when
         HttpEntity<String> request = new HttpEntity<>( headers);
         ResponseEntity<String> response = restTemplate.exchange("/survey/" + posterId, HttpMethod.GET, request, String.class);
 
-        //when
+        //then
         DocumentContext dc = JsonPath.parse(response.getBody());
-        String choice = dc.read("$.data.data[0].choice");
-        String choiceResult = dc.read("$.data.data[1].choiceResult");
-        Integer choiceViewCount = dc.read("$.data.data[2].choiceViewCount");
+        String choice = dc.read("$.data.surveyList[0].choice");
+        String choiceResult = dc.read("$.data.surveyList[1].choiceResult");
+        Integer choiceViewCount = dc.read("$.data.surveyList[2].choiceViewCount");
+        Integer statusCode = dc.read("$.code");
 
-        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        assertThat(statusCode).isEqualTo(200);
         assertThat(choice).isEqualTo("선택지0");
         assertThat(choiceResult).isEqualTo("결과1");
         assertThat(choiceViewCount).isEqualTo(0);
     }
-
 }
