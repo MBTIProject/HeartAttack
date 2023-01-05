@@ -1,0 +1,22 @@
+server:
+  port: 7070
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/reactspring?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password: 1q2w3e4r
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+    database: MYSQL
+
+  logging:
+    level:
+      org.hibernate.SQL: debug
