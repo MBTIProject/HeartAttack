@@ -5,7 +5,7 @@ create table comment (
                          comment varchar(255) not null,
                          poster_id bigint,
                          primary key (comment_id)
-) engine=InnoDB;
+);
 
 create table poster (
                         poster_id bigint not null auto_increment,
@@ -16,7 +16,7 @@ create table poster (
                         poster_title varchar(255) not null,
                         poster_view_count integer default 0,
                         primary key (poster_id)
-) engine=InnoDB;
+);
 
 create table survey (
                         survey_id bigint not null auto_increment,
@@ -27,7 +27,7 @@ create table survey (
                         choice_view_count integer default 0,
                         poster_id bigint,
                         primary key (survey_id)
-) engine=InnoDB;
+);
 
 alter table comment
     add constraint FK8ev0x3rhics23o6103ai7d71h

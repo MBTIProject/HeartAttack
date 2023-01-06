@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,7 @@ class PosterControllerTest {
     }
 
     @Test
+    @Sql("classpath:initdata/h2db/schema.sql")
     @DisplayName("심리테스트_유형_전체조회")
     void 심리테스트_유형_전체조회(){
         //given
@@ -103,7 +105,7 @@ class PosterControllerTest {
         List<PosterResponseDto> posterResponseDtoList = dc.read("$.data.posterList");
         Integer statusCode = dc.read("$.code");
 
-        assertThat(posterResponseDtoList.size()).isEqualTo(11);
+        assertThat(posterResponseDtoList.size()).isEqualTo(5);
         assertThat(posterId).isEqualTo(1);
         assertThat(posterTitle).isEqualTo("심리테스트 유형 제목0");
         assertThat(imgUrl).isEqualTo("심리테스트 유형 이미지0");
