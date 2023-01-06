@@ -1,3 +1,7 @@
+drop table if exists comment CASCADE ;
+drop table if exists survey CASCADE ;
+drop table if exists poster CASCADE ;
+
 create table comment (
                          comment_id bigint not null auto_increment,
                          created_at datetime(6),
