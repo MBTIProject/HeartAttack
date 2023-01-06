@@ -1,22 +1,19 @@
-server:
-  port: 7070
-
+database: h2db
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/reactspring?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
-    password: 1q2w3e4r
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-        default_batch_fetch_size: 100
-    database: MYSQL
-
-  logging:
-    level:
-      org.hibernate.SQL: debug
+    datasource:
+      driverClassName: org.h2.Driver
+      #url: jdbc:h2:file:./target/h2db/db/application;DB_CLOSE_DELAY=-1
+      url: jdbc:h2:mem:testdb
+      username: sa
+      password:
+      # DB초기화(schema.sql, data.sql) , [always : 기동 시 매번 동작, never : 기동 시 동작하지 않음]
+      schema: classpath*:initdata/${database}/schema.sql
+      data: classpath*:initdata/${database}/data.sql
+      #schema: classpath*:initdata/h2db/schema.sql
+      #data: classpath*:initdata/h2db/data.sql
+      initialization-mode: always
